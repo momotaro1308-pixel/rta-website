@@ -2,6 +2,7 @@
 
 import Nav from '../components/Nav';
 import AboutHeroFrame from '../components/AboutHeroFrame';
+import RtaSubscriptionAccordion from '../components/RtaSubscriptionAccordion';
 import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
@@ -328,7 +329,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ⑦ Footer */}
+      {/* ⑦ RTA Subscription accordion */}
+      <RtaSubscriptionAccordion isEn={isEn} />
+
+      {/* ⑧ Footer */}
       <footer
         className="site-footer about-fade-up"
         style={{
