@@ -79,7 +79,7 @@ export default function SeminarPage() {
       <Nav />
 
       {/* HERO PHOTO */}
-      <section className="seminar-hero" style={{position:'relative', width:'100%', height:'70vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
+      <section className="seminar-hero" style={{position:'relative', width:'100%', height:'100vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
         <HeroImage src="/seminar-hero.jpg" alt="Razor Tech Archive — Seminars & Sessions" parallax priority />
         <div aria-hidden="true" style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(237,235,229,0.3) 70%, rgba(237,235,229,1) 100%)', zIndex:5, pointerEvents:'none'}}></div>
 
@@ -88,13 +88,11 @@ export default function SeminarPage() {
             <span style={{width:18, height:1, background:'#FFFFFF', display:'inline-block', opacity:0.7}}></span>
             Seminar — Sessions
           </div>
-          <h1 className="page-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:36, color:'#FFFFFF'}}>
+          <h1 className="page-heading about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px, 4vw, 56px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:20, color:'#FFFFFF'}}>
             <em style={{fontStyle:'italic', color:'#FFFFFF'}}>Seminars</em><br/>& Sessions
           </h1>
-          <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:560, opacity:0.85}}>
-            {isEn
-              ? 'Regular sessions to learn razor cutting technique and philosophy in person. Time to embed the sensation of Stealth cut into your own body.'
-              : 'レザーカット技術と思想を、対面で深く学ぶための定期セッション。Stealth cut の感覚を、各自の身体に落とし込むための時間。'}
+          <p className="about-fade-up" style={{fontFamily:'DM Sans, sans-serif', fontSize:10, letterSpacing:'0.38em', textTransform:'uppercase', color:'#FFFFFF', opacity:0.85}}>
+            In-Person Technique Sessions
           </p>
         </div>
       </section>
@@ -265,9 +263,6 @@ export default function SeminarPage() {
 
       <style>{`
         @media (max-width: 768px) {
-          .seminar-hero {
-            height: 60vh !important;
-          }
           .seminar-hero-content {
             padding: 140px 24px 40px !important;
           }

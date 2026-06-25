@@ -88,9 +88,6 @@ export default function AboutPage() {
   const introLine = isEn
     ? 'RTA Subscription is not simply an online salon.'
     : 'RTA Subscriptionは、単なるオンラインサロンではない。';
-  const heroLead = isEn
-    ? 'RTA preserves not how to cut, but how to see hair. An archive that turns sensation into something reproducible.'
-    : 'RTAが保存するのは、切り方ではなく「髪の見方」。感覚を、再現可能なかたちへ変えるアーカイブ。';
   const gridSectionLabel = isEn ? 'What is RTA Subscription' : 'RTA Subscriptionとは';
   const manifestoQuote =
     'The blade does not cut hair. It listens to the weight that asks to fall.';
@@ -109,10 +106,10 @@ export default function AboutPage() {
     >
       <Nav />
 
-      {/* ① Hero — standard full-bleed photo hero (matches Seminar etc.) */}
+      {/* ① Hero — standard full-bleed photo hero (matches Members etc.) */}
       <section
         className="about-hero"
-        style={{ position: 'relative', width: '100%', height: '70vh', overflow: 'hidden', borderBottom: `0.5px solid ${C.border}` }}
+        style={{ position: 'relative', width: '100%', height: '100vh', overflow: 'hidden', borderBottom: `0.5px solid ${C.border}` }}
       >
         <HeroImage src="/about-hero.jpg" alt="Razor Tech Archive — About" parallax priority />
         <div
@@ -159,11 +156,11 @@ export default function AboutPage() {
             className="page-heading about-animate-title"
             style={{
               fontFamily: 'Cormorant Garamond, serif',
-              fontSize: 'clamp(28px, 3vw, 42px)',
+              fontSize: 'clamp(32px, 4vw, 56px)',
               fontWeight: 200,
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
-              marginBottom: 36,
+              marginBottom: 20,
               color: '#FFFFFF',
             }}
           >
@@ -173,15 +170,15 @@ export default function AboutPage() {
           <p
             className="about-fade-up"
             style={{
-              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
-              fontSize: 13,
+              fontFamily: 'DM Sans, sans-serif',
+              fontSize: 10,
+              letterSpacing: '0.38em',
+              textTransform: 'uppercase',
               color: '#FFFFFF',
-              lineHeight: 2.1,
-              maxWidth: 560,
               opacity: 0.85,
             }}
           >
-            {heroLead}
+            An Archive of Sensation
           </p>
         </div>
       </section>
@@ -335,9 +332,6 @@ export default function AboutPage() {
         }
 
         @media (max-width: 768px) {
-          .about-hero {
-            height: 60vh !important;
-          }
           .about-hero-content {
             padding: 140px 24px 40px !important;
           }
