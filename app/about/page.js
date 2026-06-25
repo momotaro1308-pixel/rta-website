@@ -1,7 +1,7 @@
 'use client';
 
 import Nav from '../components/Nav';
-import AboutHeroFrame from '../components/AboutHeroFrame';
+import HeroImage from '../components/HeroImage';
 import RtaSubscriptionAccordion from '../components/RtaSubscriptionAccordion';
 import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
@@ -38,7 +38,7 @@ function SectionLabel({ children, style, className }) {
   );
 }
 
-// Portrait aspect-ratio cell, caption sits below the image as plain text (no heavy bordered bar)
+// Portrait aspect-ratio cell, caption sits below the image as plain text
 function GridCell({ src, caption, alt }) {
   return (
     <div style={{ minWidth: 0 }}>
@@ -88,16 +88,10 @@ export default function AboutPage() {
   const introLine = isEn
     ? 'RTA Subscription is not simply an online salon.'
     : 'RTA Subscriptionは、単なるオンラインサロンではない。';
+  const heroLead = isEn
+    ? 'RTA preserves not how to cut, but how to see hair. An archive that turns sensation into something reproducible.'
+    : 'RTAが保存するのは、切り方ではなく「髪の見方」。感覚を、再現可能なかたちへ変えるアーカイブ。';
   const gridSectionLabel = isEn ? 'What is RTA Subscription' : 'RTA Subscriptionとは';
-  const midBody = isEn
-    ? 'Much beauty education teaches cutting methods, procedures, and styles. What RTA wants to preserve is how you see hair.'
-    : '多くの美容教育は、切り方・手順・スタイルを教える。しかしRTAが保存したいのは、髪の見方。';
-  const observationBody = isEn
-    ? 'At RTA, we theorize natural growth, hair flow, root direction, fall position, texture, and airiness—and translate them into reproducibility.'
-    : 'RTAでは、生え癖・毛流れ・根元方向・落下位置・質感・空気感を理論化し、再現性へ落とし込む。';
-  const pullQuote = isEn
-    ? 'We do not let technique end as "sensation".'
-    : '技術を"感覚"で終わらせない。';
   const manifestoQuote =
     'The blade does not cut hair. It listens to the weight that asks to fall.';
 
@@ -115,36 +109,84 @@ export default function AboutPage() {
     >
       <Nav />
 
-      {/* ① Hero ticket frame */}
-      <AboutHeroFrame isEn={isEn} />
-
-      {/* ② Centered title */}
+      {/* ① Hero — standard full-bleed photo hero (matches Seminar etc.) */}
       <section
-        className="about-title-block"
-        style={{
-          padding: 'clamp(72px, 10vw, 130px) 24px',
-          textAlign: 'center',
-          background: C.bg,
-          borderTop: `0.5px solid ${C.border}`,
-        }}
+        className="about-hero"
+        style={{ position: 'relative', width: '100%', height: '70vh', overflow: 'hidden', borderBottom: `0.5px solid ${C.border}` }}
       >
-        <h2
-          className="about-fade-up"
+        <HeroImage src="/about-hero.jpg" alt="Razor Tech Archive — About" parallax priority />
+        <div
+          aria-hidden="true"
           style={{
-            fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(32px, 5vw, 52px)',
-            fontWeight: 300,
-            lineHeight: 1.08,
-            letterSpacing: '-0.02em',
-            color: C.text,
-            margin: 0,
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(244,240,232,0.3) 70%, rgba(244,240,232,1) 100%)',
+            zIndex: 5,
+            pointerEvents: 'none',
+          }}
+        />
+        <div
+          className="about-hero-content about-page-top"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            zIndex: 10,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            padding: '180px 80px 80px',
           }}
         >
-          The Art of <em style={{ fontStyle: 'italic' }}>Stealth</em> Cut.
-        </h2>
+          <div
+            className="about-fade-up"
+            style={{
+              fontSize: 8,
+              letterSpacing: '0.45em',
+              textTransform: 'uppercase',
+              color: '#FFFFFF',
+              marginBottom: 36,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              opacity: 0.85,
+            }}
+          >
+            <span style={{ width: 18, height: 1, background: '#FFFFFF', display: 'inline-block', opacity: 0.7 }} />
+            About — Manifesto
+          </div>
+          <h1
+            className="page-heading about-animate-title"
+            style={{
+              fontFamily: 'Cormorant Garamond, serif',
+              fontSize: 'clamp(28px, 3vw, 42px)',
+              fontWeight: 200,
+              lineHeight: 1.05,
+              letterSpacing: '-0.02em',
+              marginBottom: 36,
+              color: '#FFFFFF',
+            }}
+          >
+            About<br />
+            <em style={{ fontStyle: 'italic', color: '#FFFFFF' }}>RTA</em>
+          </h1>
+          <p
+            className="about-fade-up"
+            style={{
+              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
+              fontSize: 13,
+              color: '#FFFFFF',
+              lineHeight: 2.1,
+              maxWidth: 560,
+              opacity: 0.85,
+            }}
+          >
+            {heroLead}
+          </p>
+        </div>
       </section>
 
-      {/* ③ Intro row */}
+      {/* ② Intro row */}
       <section
         id="intro"
         className="about-intro-row about-fade-up"
@@ -175,7 +217,7 @@ export default function AboutPage() {
         <TextButton href="#grid">View All</TextButton>
       </section>
 
-      {/* ④ Photo grid */}
+      {/* ③ Photo grid */}
       <section
         id="grid"
         className="about-grid-section"
@@ -207,132 +249,43 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ⑤ Mid — text + portrait */}
+      {/* ④ RTA Subscription accordion — all explanatory text consolidated here */}
+      <RtaSubscriptionAccordion isEn={isEn} />
+
+      {/* ⑤ Manifesto — small standalone closer */}
       <section
-        className="about-mid"
+        id="manifesto"
+        className="about-manifesto"
         style={{
-          padding: 'clamp(64px, 9vw, 110px) 24px',
-          background: C.panel,
+          padding: 'clamp(56px, 8vw, 96px) clamp(24px, 5vw, 64px)',
+          background: C.bg,
           borderTop: `0.5px solid ${C.border}`,
           textAlign: 'center',
         }}
       >
-        <SectionLabel className="about-fade-up" style={{ display: 'block', marginBottom: 28 }}>
-          {gridSectionLabel}
-        </SectionLabel>
-        <p
+        <blockquote
           className="about-fade-up"
           style={{
             fontFamily: 'Cormorant Garamond, serif',
-            fontSize: 'clamp(20px, 3vw, 30px)',
+            fontSize: 'clamp(16px, 2.4vw, 24px)',
+            fontStyle: 'italic',
             fontWeight: 300,
-            lineHeight: 1.6,
+            lineHeight: 1.5,
             color: C.text,
-            maxWidth: 620,
-            margin: '0 auto 48px',
+            margin: '0 auto 16px',
+            padding: 0,
+            border: 'none',
+            maxWidth: 560,
           }}
         >
-          {midBody}
-        </p>
-        <div
-          className="about-fade-up"
-          style={{ margin: '0 auto 40px', width: 'min(360px, 72%)', aspectRatio: '3 / 4', overflow: 'hidden' }}
-        >
-          <img
-            src="/about-1.jpg"
-            alt={isEn ? 'Archive portrait' : 'アーカイブポートレート'}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
-            draggable={false}
-          />
-        </div>
-        <p
-          className="about-fade-up"
-          style={{
-            fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
-            fontSize: 10,
-            lineHeight: 2,
-            color: C.muted,
-            maxWidth: 480,
-            margin: '0 auto 36px',
-          }}
-        >
-          {observationBody}
-        </p>
-        <TextButton href="#philosophy">Philosophy</TextButton>
+          {manifestoQuote}
+        </blockquote>
+        <SectionLabel className="about-fade-up" style={{ display: 'block' }}>
+          — RTA Manifesto, 2026
+        </SectionLabel>
       </section>
 
-      {/* ⑥ Editorial split */}
-      <section
-        id="philosophy"
-        className="about-editorial"
-        style={{
-          padding: 'clamp(64px, 9vw, 110px) clamp(24px, 5vw, 64px)',
-          background: C.bg,
-          borderTop: `0.5px solid ${C.border}`,
-          display: 'flex',
-          gap: 'clamp(32px, 5vw, 72px)',
-          alignItems: 'flex-start',
-          flexWrap: 'wrap',
-        }}
-      >
-        <div
-          className="about-fade-up"
-          style={{ width: 'clamp(180px, 26vw, 300px)', aspectRatio: '3 / 4', flexShrink: 0, overflow: 'hidden' }}
-        >
-          <img
-            src="/about-2.jpg"
-            alt={isEn ? 'Technique detail' : '技術のディテール'}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center', display: 'block' }}
-            draggable={false}
-          />
-        </div>
-        <div className="about-fade-up" style={{ flex: '1 1 280px', minWidth: 0 }}>
-          <SectionLabel style={{ display: 'block', marginBottom: 24, color: C.text }}>
-            RTA Subscription Philosophy
-          </SectionLabel>
-          <p
-            style={{
-              fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
-              fontSize: 12,
-              lineHeight: 2,
-              color: C.text,
-              margin: '0 0 32px',
-            }}
-          >
-            {pullQuote}
-          </p>
-          <div style={{ width: 180, aspectRatio: '4 / 3', overflow: 'hidden', marginBottom: 32 }}>
-            <img
-              src="/about-3.jpg"
-              alt=""
-              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-              draggable={false}
-            />
-          </div>
-          <blockquote
-            style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontSize: 'clamp(20px, 3.2vw, 32px)',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              lineHeight: 1.45,
-              color: C.text,
-              margin: '0 0 20px',
-              padding: 0,
-              border: 'none',
-              maxWidth: 720,
-            }}
-          >
-            {manifestoQuote}
-          </blockquote>
-          <SectionLabel>— RTA Manifesto, 2026</SectionLabel>
-        </div>
-      </section>
-
-      {/* ⑦ RTA Subscription accordion */}
-      <RtaSubscriptionAccordion isEn={isEn} />
-
-      {/* ⑧ Footer */}
+      {/* ⑥ Footer */}
       <footer
         className="site-footer about-fade-up"
         style={{
@@ -382,14 +335,18 @@ export default function AboutPage() {
         }
 
         @media (max-width: 768px) {
+          .about-hero {
+            height: 60vh !important;
+          }
+          .about-hero-content {
+            padding: 140px 24px 40px !important;
+          }
           .about-intro-row {
             flex-direction: column;
             align-items: flex-start !important;
             padding-top: 40px !important;
             padding-bottom: 40px !important;
           }
-          /* In column flex, 'flex: 1 1 240px' was treating 240px as a HEIGHT
-             basis and stretching the paragraph — reset it so it hugs content. */
           .about-intro-row > p {
             flex: 0 0 auto !important;
             max-width: 100% !important;
@@ -401,24 +358,12 @@ export default function AboutPage() {
             flex: 1 1 calc(50% - 4px) !important;
             min-width: calc(50% - 4px);
           }
-          .about-editorial {
-            flex-direction: column;
-            align-items: center;
-          }
-          /* Same flex-basis-as-height fix for the editorial text column */
-          .about-editorial > div:last-child {
-            flex: 0 0 auto !important;
-            width: 100% !important;
-          }
           .about-page .site-footer {
             flex-direction: column;
             align-items: flex-start;
           }
-          /* Trim the desktop-scale vertical air so it isn't excessive on a phone */
-          .about-title-block { padding-top: 56px !important; padding-bottom: 56px !important; }
           .about-grid-section { padding-top: 44px !important; padding-bottom: 44px !important; }
-          .about-mid { padding-top: 56px !important; padding-bottom: 56px !important; }
-          .about-editorial { padding-top: 56px !important; padding-bottom: 56px !important; }
+          .about-manifesto { padding-top: 56px !important; padding-bottom: 56px !important; }
         }
       `}</style>
     </main>
