@@ -300,7 +300,7 @@ export default function AboutPage() {
           Razor Tech Archive
         </span>
         <div style={{ display: 'flex', gap: 20 }}>
-          <a href="#" style={{ ...labelStyle, fontSize: 7, letterSpacing: '0.24em', color: C.muted, textDecoration: 'none' }}>
+          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{ ...labelStyle, fontSize: 7, letterSpacing: '0.24em', color: C.muted, textDecoration: 'none' }}>
             Instagram
           </a>
           <span style={{ ...labelStyle, fontSize: 7, color: C.border }}>/</span>
@@ -325,10 +325,6 @@ export default function AboutPage() {
         }
         .about-page .site-nav svg {
           stroke: ${C.text} !important;
-        }
-        .about-page .site-nav > div:nth-of-type(2) button[aria-label="Account"],
-        .about-page .site-nav > div:nth-of-type(2) a[aria-label="Cart"] {
-          display: none !important;
         }
 
         @media (max-width: 768px) {

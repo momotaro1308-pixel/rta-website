@@ -23,8 +23,8 @@ const products = [
     nameEn: 'Comb',
     category: 'Product',
     status: 'comingSoon',
-    descJa: 'Stealth cut を支える、RTAオリジナルのコーム。',
-    descEn: 'An RTA original comb designed to support Stealth cut.',
+    descJa: 'レザーカットを支える、RTAオリジナルのコーム。',
+    descEn: 'An RTA original comb designed to support razor cutting.',
   },
 ];
 
@@ -89,8 +89,8 @@ export default function Shop() {
         </h1>
         <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:540, opacity:0.85}}>
           {isEn
-            ? 'Seminar tickets and products that support the theory of Stealth cut. Learn the technique—and keep the tools at hand.'
-            : 'セミナーチケットと、Stealth cut の理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。'}
+            ? 'Seminar tickets and products that support the theory of razor cutting. Learn the technique—and keep the tools at hand.'
+            : 'セミナーチケットと、レザーカットの理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。'}
         </p>
       </PageHero>
 
@@ -162,7 +162,7 @@ export default function Shop() {
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
         <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>
-          <a href="#" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
+          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
           <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Contact</a>
         </div>
       </footer>

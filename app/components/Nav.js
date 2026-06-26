@@ -72,9 +72,11 @@ export default function Nav() {
               JP
             </button>
           </div>
+          {/* マイページ/アカウントボタンは一時的に非表示。復活させる場合は下のコメントを解除する。
           <button aria-label="Account" style={{background:'none', border:'none', cursor:'pointer', opacity:0.5}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           </button>
+          */}
           <a href="/cart" aria-label="Cart" style={{position:'relative', display:'flex', alignItems:'center', opacity:0.5, textDecoration:'none'}}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1C1A17" strokeWidth="1.2" strokeLinecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             {cartCount > 0 && (
@@ -102,7 +104,7 @@ export default function Nav() {
           <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-end'}}>
             <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, fontStyle:'italic', color:'#9A948C', lineHeight:1.8}}>Precision has no language.<br/>感覚を理論へ。</p>
             <div style={{display:'flex', gap:28}}>
-              <a href="#" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
+              <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
               <a href="#" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>© 2026 RTA</a>
             </div>
           </div>

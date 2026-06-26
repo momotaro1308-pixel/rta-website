@@ -346,7 +346,9 @@ export default function CartPage() {
         </span>
         <div style={{ display: 'flex', gap: 24 }}>
           <a
-            href="#"
+            href="https://www.instagram.com/razor_techarchive"
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               fontSize: 9,
               letterSpacing: '0.22em',

@@ -62,7 +62,7 @@ export default function Home() {
       {/* TICKER */}
       <div className="about-fade-up" style={{borderTop:'1px solid #C4BFB7', borderBottom:'1px solid #C4BFB7', padding:'13px 0', overflow:'hidden'}}>
         <div style={{display:'flex', gap:60, animation:'tick 28s linear infinite', whiteSpace:'nowrap'}}>
-          {['Razor Tech Archive','Stealth Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory','Razor Tech Archive','Stealth Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory'].map((t,i) => (
+          {['Razor Tech Archive','Razor Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory','Razor Tech Archive','Razor Cut','Precision Has No Language','感覚を理論へ','From Sensation to Theory'].map((t,i) => (
             <span key={i} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:8, letterSpacing:'0.35em', textTransform:'uppercase', color:'#9A948C', flexShrink:0}}>{t} &nbsp;✦&nbsp; </span>
           ))}
         </div>
@@ -151,7 +151,7 @@ export default function Home() {
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
         <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>
-          <a href="#" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
+          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
           <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Contact</a>
         </div>
       </footer>

@@ -162,7 +162,7 @@ export default function AboutHeroFrame({ isEn }) {
           />
         </div>
         <Micro ink style={{ display: 'block', textAlign: 'center', marginBottom: 'clamp(16px, 2.4vw, 32px)' }}>
-          Stealth Cut
+          Razor Cut
         </Micro>
 
         {/* Title row */}
@@ -195,7 +195,7 @@ export default function AboutHeroFrame({ isEn }) {
               textAlign: 'center',
             }}
           >
-            Stealth Cut
+            Razor Cut
           </h1>
           <span style={{ color: HERO.sub, fontSize: 'clamp(8px, 1.2vw, 16px)', paddingBottom: 4 }}>✣</span>
           <div style={{ textAlign: 'right' }}>
