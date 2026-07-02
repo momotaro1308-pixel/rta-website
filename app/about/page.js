@@ -2,7 +2,7 @@
 
 import Nav from '../components/Nav';
 import HeroImage from '../components/HeroImage';
-import RtaSubscriptionAccordion from '../components/RtaSubscriptionAccordion';
+import RtaAboutContents from '../components/RtaAboutContents';
 import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
@@ -246,8 +246,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ④ RTA Subscription accordion — all explanatory text consolidated here */}
-      <RtaSubscriptionAccordion isEn={isEn} />
+      {/* ④ RTA process contents — all explanatory text consolidated here */}
+      <RtaAboutContents isEn={isEn} />
 
       {/* ⑤ Manifesto — small standalone closer */}
       <section
