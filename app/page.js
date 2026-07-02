@@ -69,8 +69,8 @@ export default function Home() {
       </div>
 
       {/* SEMINAR */}
-      <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+      <section className="section-pad" style={{padding:'clamp(72px, 11vw, 140px) clamp(24px, 6vw, 80px)', borderTop:'1px solid #C4BFB7'}}>
+        <div className="about-fade-up section-label" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:'clamp(36px, 5vw, 64px)', display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Upcoming Seminars
         </div>
@@ -85,42 +85,39 @@ export default function Home() {
       </section>
 
       {/* ABOUT */}
-      <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+      <section className="section-pad" style={{padding:'clamp(72px, 11vw, 140px) clamp(24px, 6vw, 80px)', borderTop:'1px solid #C4BFB7'}}>
+        <div className="about-fade-up section-label" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:'clamp(36px, 5vw, 64px)', display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           About
         </div>
-        <div className="about-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:120}}>
+        <div className="about-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'clamp(40px, 8vw, 120px)', alignItems:'start'}}>
           <div>
-            <div className="about-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:20}}>
+            <div className="about-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px, 3vw, 42px)', fontWeight:200, lineHeight:1.05, letterSpacing:'-0.02em', marginBottom:16}}>
               Archive<br/>the <em style={{fontStyle:'italic', color:'#C9956A'}}>Sense</em>.
             </div>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, letterSpacing:'0.12em', color:'#9A948C', marginBottom:36}}>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, letterSpacing:'0.12em', color:'#9A948C', margin:0}}>
               {isEn ? 'Record sensation.' : '感覚を、記録する。'}
             </p>
-            <div className="about-fade-up" style={{width:72, height:72, border:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'center'}}>
-              <div style={{width:44, height:44, borderRadius:'50%', border:'1px solid #C4BFB7'}}></div>
-            </div>
           </div>
-          <div style={{paddingTop:8}}>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
+          <div className="about-body">
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'#9A948C', marginBottom:22}}>
               {isEn
                 ? 'Much education teaches cutting methods and procedures.'
                 : '多くの教育は、切り方と手順を教える。'}
             </p>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'#9A948C', marginBottom:22}}>
               {isEn ? (
                 <>But what RTA seeks to preserve is how you <strong style={{color:'#1C1A17', fontWeight:300}}>see hair</strong>.</>
               ) : (
                 <>しかしRTAが保存したいのは、髪の<strong style={{color:'#1C1A17', fontWeight:300}}>「見方」</strong>だ。</>
               )}
             </p>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', marginBottom:24}}>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'#9A948C', marginBottom:22}}>
               {isEn
                 ? 'We do not let technique end as sensation alone. We observe, theorize, and translate into reproducibility.'
                 : '技術を感覚で終わらせない。観察し、理論化し、再現性へ落とし込む。'}
             </p>
-            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C'}}>
+            <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'#1C1A17', margin:0}}>
               {isEn ? 'From sensation, to intention.' : '感覚から、意図へ。'}
             </p>
           </div>
@@ -128,10 +125,10 @@ export default function Home() {
       </section>
 
       {/* MEMBERS */}
-      <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
-        <div className="members-banner" style={{border:'1px solid #C4BFB7', padding:'100px 80px', display:'flex', alignItems:'center', justifyContent:'space-between', gap:60, position:'relative', overflow:'hidden'}}>
+      <section className="section-pad" style={{padding:'clamp(72px, 11vw, 140px) clamp(24px, 6vw, 80px)', borderTop:'1px solid #C4BFB7'}}>
+        <div className="members-banner" style={{border:'1px solid #C4BFB7', padding:'clamp(56px, 8vw, 100px) clamp(28px, 6vw, 80px)', display:'flex', alignItems:'center', justifyContent:'space-between', gap:60, position:'relative', overflow:'hidden'}}>
           <div>
-            <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:28, display:'flex', alignItems:'center', gap:16}}>
+            <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:24, display:'flex', alignItems:'center', gap:16}}>
               <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
               Members
             </div>
@@ -174,12 +171,12 @@ export default function Home() {
             padding: 0 20px !important;
             bottom: 32px !important;
           }
-          .section-pad {
-            padding: 80px 24px !important;
-          }
           .about-grid {
             grid-template-columns: 1fr !important;
-            gap: 48px !important;
+            gap: 20px !important;
+          }
+          .about-body {
+            padding-top: 0 !important;
           }
           .seminar-item {
             grid-template-columns: 1fr !important;
@@ -193,10 +190,14 @@ export default function Home() {
             flex-direction: column !important;
             align-items: flex-start !important;
             gap: 32px !important;
-            padding: 56px 28px !important;
           }
           .members-heading {
             font-size: 34px !important;
+            white-space: normal !important;
+          }
+          .footer-flex, .site-footer {
+            flex-wrap: wrap;
+            gap: 16px;
           }
         }
       `}</style>
