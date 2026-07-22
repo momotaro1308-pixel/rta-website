@@ -12,40 +12,50 @@ const steps = [
     en: 'SEE',
     jp: '髪を観察する',
     jpEn: 'Observe Hair',
+    jpZh: '观察头发',
     goalJa: '切る前に見る',
     goalEn: 'See before you cut',
+    goalZh: '在裁剪之前先观察',
   },
   {
     step: 'STEP 2',
     en: 'TOUCH',
     jp: '柔操作理論',
     jpEn: 'Soft Manipulation Theory',
+    jpZh: '柔性操作理论',
     goalJa: '硬い操作から抜ける',
     goalEn: 'Move beyond rigid manipulation',
+    goalZh: '摆脱僵硬的操作',
   },
   {
     step: 'STEP 3',
     en: 'FLOW',
     jp: 'CUT × DRY',
     jpEn: 'CUT × DRY',
+    jpZh: 'CUT × DRY',
     goalJa: '自然に落ちるを作る',
     goalEn: 'Create natural fall',
+    goalZh: '塑造自然的垂落',
   },
   {
     step: 'STEP 4',
     en: 'DESIGN',
     jp: 'Flow Design',
     jpEn: 'Flow Design',
+    jpZh: 'Flow Design',
     goalJa: '狙って柔らかくする',
     goalEn: 'Soften with intention',
+    goalZh: '有意识地营造柔和',
   },
   {
     step: 'STEP 5',
     en: 'EXPRESSION',
     jp: 'Visual Design',
     jpEn: 'Visual Design',
+    jpZh: 'Visual Design',
     goalJa: '伝わる技術へ変える',
     goalEn: 'Transform technique into communication',
+    goalZh: '让技术成为可传达的表达',
   },
 ];
 
@@ -59,24 +69,30 @@ const plans = [
     name: 'BASIC',
     taglineJa: '理論中心',
     taglineEn: 'Theory-focused',
+    taglineZh: '以理论为中心',
     featuresJa: ['Archive閲覧', 'Monthly更新', '基礎理論'],
     featuresEn: ['Archive access', 'Monthly updates', 'Foundational theory'],
+    featuresZh: ['Archive 浏览', '每月更新', '基础理论'],
     highlight: false,
   },
   {
     name: 'FOUNDATION',
     taglineJa: '実践追加',
     taglineEn: 'Practice added',
+    taglineZh: '增设实践',
     featuresJa: ['実践動画', 'Live参加', '添削', '限定配信'],
     featuresEn: ['Practice videos', 'Live participation', 'Critique', 'Exclusive releases'],
+    featuresZh: ['实践视频', 'Live 参与', '作品点评', '专属放送'],
     highlight: true,
   },
   {
     name: 'CERTIFIED MEMBER',
     taglineJa: 'Offline連動',
     taglineEn: 'Offline integration',
+    taglineZh: 'Offline 联动',
     featuresJa: ['認定対象', '限定Workshop', 'Community', '実技審査'],
     featuresEn: ['Certification eligible', 'Exclusive workshops', 'Community', 'Practical examination'],
+    featuresZh: ['认定资格', '专属 Workshop', 'Community', '实操考核'],
     highlight: false,
   },
 ];
@@ -93,7 +109,6 @@ function SectionLabel({ children }) {
 export default function MembersPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang !== 'ja';
 
   return (
     <main ref={mainRef} style={{background:'#2E3A4A', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#EDEBE5'}}>
@@ -123,7 +138,12 @@ export default function MembersPage() {
       {/* 2. SUBSCRIPTION PURPOSE */}
       <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, maxWidth:720}}>
-          {isEn ? (
+          {lang === 'zh' ? (
+            <>
+              不是&ldquo;观看视频&rdquo;。<br />
+              <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;而是积累理解。&rdquo;</em>
+            </>
+          ) : lang === 'en' ? (
             <>
               Not &ldquo;watching videos.&rdquo;<br />
               <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;Accumulating understanding.&rdquo;</em>
@@ -159,11 +179,11 @@ export default function MembersPage() {
               <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.4vw,28px)', fontWeight:300, letterSpacing:'-0.01em', flexShrink:0}}>{s.en}</span>
               <span style={{color:'rgba(237,235,229,0.15)', flexShrink:0}}>—</span>
               <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#EDEBE5', fontWeight:300}}>
-                {isEn ? s.jpEn : s.jp}
+                {lang === 'zh' ? s.jpZh : lang === 'en' ? s.jpEn : s.jp}
               </span>
             </div>
             <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'rgba(237,235,229,0.72)', letterSpacing:'0.06em', whiteSpace:'nowrap', flexShrink:0}}>
-              Goal：{isEn ? s.goalEn : s.goalJa}
+              Goal：{lang === 'zh' ? s.goalZh : lang === 'en' ? s.goalEn : s.goalJa}
             </span>
           </div>
         ))}
@@ -175,7 +195,12 @@ export default function MembersPage() {
         <div className="members-archive-grid about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start'}}>
           <div>
             <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, marginBottom:32}}>
-              {isEn ? (
+              {lang === 'zh' ? (
+                <>
+                  并非单纯的视频列表。<br />
+                  <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;可检索的教育。&rdquo;</em>
+                </>
+              ) : lang === 'en' ? (
                 <>
                   Not simply a video library.<br />
                   <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;Searchable education.&rdquo;</em>
@@ -231,10 +256,10 @@ export default function MembersPage() {
             >
               <h3 style={{fontFamily:'Cormorant Garamond, serif', fontSize:26, fontWeight:300, marginBottom:8, letterSpacing:'-0.01em'}}>{plan.name}</h3>
               <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#C9956A', letterSpacing:'0.12em', marginBottom:28, paddingBottom:28, borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
-                — {isEn ? plan.taglineEn : plan.taglineJa}
+                — {lang === 'zh' ? plan.taglineZh : lang === 'en' ? plan.taglineEn : plan.taglineJa}
               </p>
               <ul style={{listStyle:'none', flex:1, display:'flex', flexDirection:'column', gap:14}}>
-                {(isEn ? plan.featuresEn : plan.featuresJa).map((f) => (
+                {(lang === 'zh' ? plan.featuresZh : lang === 'en' ? plan.featuresEn : plan.featuresJa).map((f) => (
                   <li key={f} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.85, color:'rgba(237,235,229,0.72)', paddingLeft:16, position:'relative'}}>
                     <span style={{position:'absolute', left:0, top:'0.55em', width:4, height:4, borderRadius:'50%', background:'#C9956A'}} />
                     {f}
@@ -257,7 +282,7 @@ export default function MembersPage() {
                   background: plan.highlight ? '#C9956A' : 'transparent',
                 }}
               >
-                Inquire →
+                {lang === 'zh' ? '咨询 →' : 'Inquire →'}
               </a>
             </article>
           ))}
@@ -270,18 +295,18 @@ export default function MembersPage() {
         <div className="members-offline about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80}}>
           <div style={{padding:'40px 36px', border:'1px solid rgba(237,235,229,0.15)', background:'#354656'}}>
             <p style={{fontSize:9, letterSpacing:'0.38em', textTransform:'uppercase', color:'#C9956A', marginBottom:20}}>
-              {isEn ? 'Online' : 'オンライン'}
+              {lang === 'zh' ? '线上' : lang === 'en' ? 'Online' : 'オンライン'}
             </p>
             <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#EDEBE5', fontWeight:300}}>
-              {isEn ? 'Theory · Observation · Way of seeing' : '理論・観察・見方'}
+              {lang === 'zh' ? '理论 · 观察 · 观察方式' : lang === 'en' ? 'Theory · Observation · Way of seeing' : '理論・観察・見方'}
             </p>
           </div>
           <div style={{padding:'40px 36px', border:'1px solid rgba(237,235,229,0.15)'}}>
             <p style={{fontSize:9, letterSpacing:'0.38em', textTransform:'uppercase', color:'#C9956A', marginBottom:20}}>
-              {isEn ? 'Offline' : 'オフライン'}
+              {lang === 'zh' ? '线下' : lang === 'en' ? 'Offline' : 'オフライン'}
             </p>
             <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#EDEBE5', fontWeight:300}}>
-              {isEn ? 'Pressure · Heat · Distance · Air · Sensation of the hands' : '圧・熱・距離・空気・手の感覚'}
+              {lang === 'zh' ? '压力 · 温度 · 距离 · 空气 · 手的感觉' : lang === 'en' ? 'Pressure · Heat · Distance · Air · Sensation of the hands' : '圧・熱・距離・空気・手の感覚'}
             </p>
           </div>
         </div>
@@ -293,7 +318,7 @@ export default function MembersPage() {
           RTA Goal
         </p>
         <p className="about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px,3.5vw,48px)', fontStyle:'italic', fontWeight:300, lineHeight:1.35, color:'#EDEBE5', letterSpacing:'-0.02em'}}>
-          {isEn ? '"Change how hair is seen."' : '"髪の見え方"を変える。'}
+          {lang === 'zh' ? '“改变看待头发的方式。”' : lang === 'en' ? '"Change how hair is seen."' : '"髪の見え方"を変える。'}
         </p>
       </section>
 

@@ -12,19 +12,23 @@ const products = [
     id: 'razor-seminar',
     nameJa: 'Razor Basics Seminar',
     nameEn: 'Razor Basics Seminar',
+    nameZh: 'Razor Basics Seminar',
     category: 'Seminar',
     status: 'soldOut',
     descJa: 'レザーカットの理論と実践を深く学ぶ、RTAのセミナー。',
     descEn: 'RTA seminar exploring the theory and practice of razor cutting.',
+    descZh: '深入研习剃刀切理论与实践的 RTA 研讨会。',
   },
   {
     id: 'comb',
     nameJa: 'Comb',
     nameEn: 'Comb',
+    nameZh: 'Comb',
     category: 'Product',
     status: 'comingSoon',
     descJa: 'レザーカットを支える、RTAオリジナルのコーム。',
     descEn: 'An RTA original comb designed to support razor cutting.',
+    descZh: '为剃刀切而生的 RTA 原创梳子。',
   },
 ];
 
@@ -40,7 +44,6 @@ export default function Shop() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
   const { addToCart } = useCart();
-  const isEn = lang !== 'ja';
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -53,7 +56,7 @@ export default function Shop() {
     if (product.status !== 'available') return;
     addToCart({
       id: product.id,
-      name: isEn ? product.nameEn : product.nameJa,
+      name: lang === 'zh' ? product.nameZh : lang === 'en' ? product.nameEn : product.nameJa,
       price: product.price,
     });
     setAddedId(product.id);
@@ -66,7 +69,7 @@ export default function Shop() {
       {success && (
         <div style={{position:'fixed', top:96, left:'50%', transform:'translateX(-50%)', zIndex:250, background:'#354656', border:'1px solid #C9956A', padding:'16px 28px', display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:6, height:6, borderRadius:'50%', background:'#C9956A', display:'inline-block'}}></span>
-          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#EDEBE5'}}>{isEn ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}</span>
+          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#EDEBE5'}}>{lang === 'zh' ? '感谢您的订购。' : lang === 'en' ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}</span>
           <button onClick={() => setSuccess(false)} style={{background:'none', border:'none', cursor:'pointer', color:'rgba(237,235,229,0.72)', fontSize:14, paddingLeft:4}}>×</button>
         </div>
       )}
@@ -88,7 +91,9 @@ export default function Shop() {
           Razor Tech<br/><em style={{fontStyle:'italic', color:'#FFFFFF'}}>Archive</em> Shop
         </h1>
         <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:540, opacity:0.85}}>
-          {isEn
+          {lang === 'zh'
+            ? '研讨会门票，以及支撑剃刀切理论的系列产品。学习技术，也将其作为工具留在手边。'
+            : lang === 'en'
             ? 'Seminar tickets and products that support the theory of razor cutting. Learn the technique—and keep the tools at hand.'
             : 'セミナーチケットと、レザーカットの理論を支えるためのプロダクト群。技術を学び、道具として手元に置く。'}
         </p>
@@ -116,8 +121,8 @@ export default function Shop() {
                     </div>
                   )}
                 </div>
-                <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:14, letterSpacing:'-0.01em'}}>{isEn ? p.nameEn : p.nameJa}</h2>
-                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'rgba(237,235,229,0.72)', marginBottom:32}}>{isEn ? p.descEn : p.descJa}</p>
+                <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:14, letterSpacing:'-0.01em'}}>{lang === 'zh' ? p.nameZh : lang === 'en' ? p.nameEn : p.nameJa}</h2>
+                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'rgba(237,235,229,0.72)', marginBottom:32}}>{lang === 'zh' ? p.descZh : lang === 'en' ? p.descEn : p.descJa}</p>
                 <div style={{marginTop:'auto', paddingTop:24, borderTop:'1px solid rgba(237,235,229,0.15)', display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap'}}>
                   {p.price != null ? (
                     <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:22, fontWeight:300}}>¥{p.price.toLocaleString()}</span>
@@ -146,8 +151,8 @@ export default function Shop() {
                       }}
                     >
                       {isAdded
-                        ? (isEn ? 'Added ✓' : '追加しました ✓')
-                        : (isEn ? 'Add to Cart →' : 'カートに追加 →')}
+                        ? (lang === 'zh' ? '已加入 ✓' : lang === 'en' ? 'Added ✓' : '追加しました ✓')
+                        : (lang === 'zh' ? '加入购物车 →' : lang === 'en' ? 'Add to Cart →' : 'カートに追加 →')}
                     </button>
                   )}
                 </div>

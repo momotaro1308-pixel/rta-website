@@ -24,10 +24,10 @@ const labelStyle = {
 };
 
 const gridPhotos = [
-  { src: '/about-1.jpg', captionEn: 'Observation', captionJa: '観察', flex: 1.15 },
-  { src: '/about-2.jpg', captionEn: 'Flow', captionJa: '毛流れ', flex: 0.9 },
-  { src: '/about-3.jpg', captionEn: 'Texture', captionJa: '質感', flex: 1 },
-  { src: '/about-hero.jpg', captionEn: 'Stillness', captionJa: '静寂', flex: 0.9 },
+  { src: '/about-1.jpg', captionEn: 'Observation', captionJa: '観察', captionZh: '观察', flex: 1.15 },
+  { src: '/about-2.jpg', captionEn: 'Flow', captionJa: '毛流れ', captionZh: '发流', flex: 0.9 },
+  { src: '/about-3.jpg', captionEn: 'Texture', captionJa: '質感', captionZh: '质感', flex: 1 },
+  { src: '/about-hero.jpg', captionEn: 'Stillness', captionJa: '静寂', captionZh: '静谧', flex: 0.9 },
 ];
 
 function SectionLabel({ children, style, className }) {
@@ -80,15 +80,25 @@ function TextButton({ href, children }) {
 export default function AboutPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang !== 'ja';
 
-  const heroTagline = isEn
-    ? '"An Archive that Preserves Sensation"'
-    : '"感覚を保存するArchive"';
-  const introLine = isEn
-    ? 'RTA Subscription is not simply an online salon.'
-    : 'RTA Subscriptionは、単なるオンラインサロンではない。';
-  const gridSectionLabel = isEn ? 'What is RTA Subscription' : 'RTA Subscriptionとは';
+  const heroTagline =
+    lang === 'zh'
+      ? '"保存感觉的 Archive"'
+      : lang === 'en'
+      ? '"An Archive that Preserves Sensation"'
+      : '"感覚を保存するArchive"';
+  const introLine =
+    lang === 'zh'
+      ? 'RTA Subscription 并非只是一间线上沙龙。'
+      : lang === 'en'
+      ? 'RTA Subscription is not simply an online salon.'
+      : 'RTA Subscriptionは、単なるオンラインサロンではない。';
+  const gridSectionLabel =
+    lang === 'zh'
+      ? '何为 RTA Subscription'
+      : lang === 'en'
+      ? 'What is RTA Subscription'
+      : 'RTA Subscriptionとは';
   const manifestoQuote =
     'The blade does not cut hair. It listens to the weight that asks to fall.';
 
@@ -238,8 +248,8 @@ export default function AboutPage() {
             <div key={photo.src} style={{ flex: photo.flex, minWidth: 0 }}>
               <GridCell
                 src={photo.src}
-                caption={isEn ? photo.captionEn : photo.captionJa}
-                alt={isEn ? photo.captionEn : photo.captionJa}
+                caption={lang === 'zh' ? photo.captionZh : lang === 'en' ? photo.captionEn : photo.captionJa}
+                alt={lang === 'zh' ? photo.captionZh : lang === 'en' ? photo.captionEn : photo.captionJa}
               />
             </div>
           ))}
@@ -247,7 +257,7 @@ export default function AboutPage() {
       </section>
 
       {/* ④ RTA process contents — all explanatory text consolidated here */}
-      <RtaAboutContents isEn={isEn} />
+      <RtaAboutContents lang={lang} />
 
       {/* ⑤ Manifesto — small standalone closer */}
       <section

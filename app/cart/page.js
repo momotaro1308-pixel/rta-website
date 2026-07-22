@@ -9,7 +9,6 @@ import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 export default function CartPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang !== 'ja';
   const { cartItems, removeFromCart, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -39,7 +38,9 @@ export default function CartPage() {
         window.location.href = data.url;
       } else {
         alert(
-          isEn
+          lang === 'zh'
+            ? '无法开始结账，请稍后再试。'
+            : lang === 'en'
             ? 'Could not start checkout. Please try again later.'
             : 'チェックアウトを開始できませんでした。時間をおいて再度お試しください。'
         );
@@ -47,7 +48,7 @@ export default function CartPage() {
       }
     } catch (err) {
       console.error(err);
-      alert(isEn ? 'A network error occurred.' : 'ネットワークエラーが発生しました。');
+      alert(lang === 'zh' ? '发生了网络错误。' : lang === 'en' ? 'A network error occurred.' : 'ネットワークエラーが発生しました。');
       setLoading(false);
     }
   };
@@ -95,7 +96,7 @@ export default function CartPage() {
               color: '#EDEBE5',
             }}
           >
-            {isEn ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}
+            {lang === 'zh' ? '感谢您的订购。' : lang === 'en' ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}
           </span>
           <button
             type="button"
@@ -159,7 +160,9 @@ export default function CartPage() {
             maxWidth: 540,
           }}
         >
-          {isEn
+          {lang === 'zh'
+            ? '确认购物车中的商品，准备好后即可前往结账。'
+            : lang === 'en'
             ? 'Review your items and proceed to checkout when ready.'
             : 'カート内の商品を確認し、よろしければまとめて決済へ進んでください。'}
         </p>
@@ -176,7 +179,7 @@ export default function CartPage() {
                 marginBottom: 32,
               }}
             >
-              {isEn ? 'Your cart is empty.' : 'カートに商品がありません。'}
+              {lang === 'zh' ? '购物车中还没有商品。' : lang === 'en' ? 'Your cart is empty.' : 'カートに商品がありません。'}
             </p>
             <a
               href="/shop"
@@ -190,7 +193,7 @@ export default function CartPage() {
                 textDecoration: 'none',
               }}
             >
-              {isEn ? 'Go to Shop →' : 'ショップへ →'}
+              {lang === 'zh' ? '前往商店 →' : lang === 'en' ? 'Go to Shop →' : 'ショップへ →'}
             </a>
           </div>
         ) : (
@@ -248,7 +251,7 @@ export default function CartPage() {
                       whiteSpace: 'nowrap',
                     }}
                   >
-                    {isEn ? 'Remove' : '削除'}
+                    {lang === 'zh' ? '删除' : lang === 'en' ? 'Remove' : '削除'}
                   </button>
                 </li>
               ))}
@@ -278,7 +281,7 @@ export default function CartPage() {
                     marginBottom: 8,
                   }}
                 >
-                  {isEn ? 'Total' : '合計'}
+                  {lang === 'zh' ? '合计' : lang === 'en' ? 'Total' : '合計'}
                 </span>
                 <span
                   style={{
@@ -308,12 +311,8 @@ export default function CartPage() {
                 }}
               >
                 {loading
-                  ? isEn
-                    ? 'Loading…'
-                    : '処理中…'
-                  : isEn
-                    ? 'Checkout All →'
-                    : 'まとめて決済 →'}
+                  ? (lang === 'zh' ? '处理中…' : lang === 'en' ? 'Loading…' : '処理中…')
+                  : (lang === 'zh' ? '一并结账 →' : lang === 'en' ? 'Checkout All →' : 'まとめて決済 →')}
               </button>
             </div>
           </>

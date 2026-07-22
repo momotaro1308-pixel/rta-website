@@ -13,6 +13,7 @@ const seminarsData = [
     name: 'Razor Basics Seminar',
     locJa: '福岡 / Fukuoka',
     locEn: 'Fukuoka / Fukuoka',
+    locZh: '福冈 / Fukuoka',
     status: 'UPCOMING',
   },
 ];
@@ -20,15 +21,14 @@ const seminarsData = [
 export default function Home() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang !== 'ja';
 
   const seminars = useMemo(
     () =>
       seminarsData.map((s) => ({
         ...s,
-        loc: isEn ? s.locEn : s.locJa,
+        loc: lang === 'zh' ? s.locZh : lang === 'en' ? s.locEn : s.locJa,
       })),
-    [isEn]
+    [lang]
   );
 
   return (
@@ -43,7 +43,7 @@ export default function Home() {
         <div className="hero-title-block" style={{position:'absolute', left:48, top:'60%', transform:'translateY(-50%)', zIndex:10}}>
           <p className="hero-title-en about-animate-title" style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, fontWeight:300, fontStyle:'italic', lineHeight:1.5, marginBottom:14, color:'rgba(237,235,229,0.72)'}}>Precision has no language.</p>
           <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, letterSpacing:'0.3em', color:'rgba(237,235,229,0.72)'}}>
-            {isEn ? 'From Sensation to Theory.' : '感覚を理論へ。'}
+            {lang === 'zh' ? '将感觉转化为理论。' : lang === 'en' ? 'From Sensation to Theory.' : '感覚を理論へ。'}
           </p>
         </div>
         <div className="hero-bottom about-fade-up" style={{position:'absolute', bottom:40, left:0, right:0, padding:'0 48px', display:'flex', alignItems:'flex-end', justifyContent:'flex-end', zIndex:10}}>
@@ -96,29 +96,35 @@ export default function Home() {
               Archive<br/>the <em style={{fontStyle:'italic', color:'#C9956A'}}>Sense</em>.
             </div>
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, letterSpacing:'0.12em', color:'rgba(237,235,229,0.72)', margin:0}}>
-              {isEn ? 'Record sensation.' : '感覚を、記録する。'}
+              {lang === 'zh' ? '记录感觉。' : lang === 'en' ? 'Record sensation.' : '感覚を、記録する。'}
             </p>
           </div>
           <div className="about-body">
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'rgba(237,235,229,0.72)', marginBottom:22}}>
-              {isEn
+              {lang === 'zh'
+                ? '多数教育只教授裁剪的方法与步骤。'
+                : lang === 'en'
                 ? 'Much education teaches cutting methods and procedures.'
                 : '多くの教育は、切り方と手順を教える。'}
             </p>
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'rgba(237,235,229,0.72)', marginBottom:22}}>
-              {isEn ? (
+              {lang === 'zh' ? (
+                <>而 RTA 想要保存的，是<strong style={{color:'#EDEBE5', fontWeight:300}}>观察头发的方式</strong>。</>
+              ) : lang === 'en' ? (
                 <>But what RTA seeks to preserve is how you <strong style={{color:'#EDEBE5', fontWeight:300}}>see hair</strong>.</>
               ) : (
                 <>しかしRTAが保存したいのは、髪の<strong style={{color:'#EDEBE5', fontWeight:300}}>「見方」</strong>だ。</>
               )}
             </p>
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'rgba(237,235,229,0.72)', marginBottom:22}}>
-              {isEn
+              {lang === 'zh'
+                ? '我们不让技术止步于感觉。观察、理论化，并落实为可复现的方法。'
+                : lang === 'en'
                 ? 'We do not let technique end as sensation alone. We observe, theorize, and translate into reproducibility.'
                 : '技術を感覚で終わらせない。観察し、理論化し、再現性へ落とし込む。'}
             </p>
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'#EDEBE5', margin:0}}>
-              {isEn ? 'From sensation, to intention.' : '感覚から、意図へ。'}
+              {lang === 'zh' ? '从感觉，到意图。' : lang === 'en' ? 'From sensation, to intention.' : '感覚から、意図へ。'}
             </p>
           </div>
         </div>
@@ -134,7 +140,9 @@ export default function Home() {
             </div>
             <h2 className="members-heading about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(32px,4vw,56px)', fontWeight:200, lineHeight:1.0, marginBottom:20, letterSpacing:'-0.01em', whiteSpace:'nowrap'}}>Join the<br/>Archive</h2>
             <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'rgba(237,235,229,0.72)', lineHeight:2, maxWidth:400}}>
-              {isEn
+              {lang === 'zh'
+                ? '会员专属内容、线上研讨会与应用访问——在这里深化你的技艺。'
+                : lang === 'en'
                 ? 'Members-only content, online seminars, and app access—where you deepen your craft.'
                 : '会員限定コンテンツ、オンラインセミナー、アプリへのアクセス。技術を深める場所がここにあります。'}
             </p>

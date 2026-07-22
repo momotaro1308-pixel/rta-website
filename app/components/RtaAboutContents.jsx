@@ -16,48 +16,48 @@ const SERIF = 'Cormorant Garamond, serif';
 
 const CHAPTERS = [
   {
-    no: '01', en: 'Observation', kanji: { ja: '観察', en: 'Observation' },
+    no: '01', en: 'Observation', kanji: { ja: '観察', en: 'Observation', zh: '观察' },
     items: [
-      { jp: { ja: '生え癖・毛流れ', en: 'Growth & Flow' }, romaji: 'Growth & Flow' },
-      { jp: { ja: '根元方向・落下位置', en: 'Root & Fall' }, romaji: 'Root & Fall' },
+      { jp: { ja: '生え癖・毛流れ', en: 'Growth & Flow', zh: '发旋与发流' }, romaji: 'Growth & Flow' },
+      { jp: { ja: '根元方向・落下位置', en: 'Root & Fall', zh: '发根方向与落点' }, romaji: 'Root & Fall' },
     ],
-    body: { ja: '髪をありのままに読む。技術の前に、見ることがある。', en: 'Read hair as it is. Before technique, there is seeing.' },
+    body: { ja: '髪をありのままに読む。技術の前に、見ることがある。', en: 'Read hair as it is. Before technique, there is seeing.', zh: '如实地读取头发。在技术之前，先有观察。' },
   },
   {
-    no: '02', en: 'Theory', kanji: { ja: '理論', en: 'Theory' },
+    no: '02', en: 'Theory', kanji: { ja: '理論', en: 'Theory', zh: '理论' },
     items: [
-      { jp: { ja: '感覚の翻訳', en: 'Translation' }, romaji: 'Translation' },
-      { jp: { ja: '原理化', en: 'Principle' }, romaji: 'Principle' },
+      { jp: { ja: '感覚の翻訳', en: 'Translation', zh: '感觉的转译' }, romaji: 'Translation' },
+      { jp: { ja: '原理化', en: 'Principle', zh: '原理化' }, romaji: 'Principle' },
     ],
-    body: { ja: '見えたものを、言葉と原理へ。感覚を再現可能な理論に翻訳する。', en: 'Turn what is seen into words and principle—translating sensation into reproducible theory.' },
+    body: { ja: '見えたものを、言葉と原理へ。感覚を再現可能な理論に翻訳する。', en: 'Turn what is seen into words and principle—translating sensation into reproducible theory.', zh: '将所见化为语言与原理，把感觉转译为可复现的理论。' },
   },
   {
-    no: '03', en: 'Structure', kanji: { ja: '構造', en: 'Structure' },
+    no: '03', en: 'Structure', kanji: { ja: '構造', en: 'Structure', zh: '结构' },
     items: [
-      { jp: { ja: '質感・空気感', en: 'Texture & Air' }, romaji: 'Texture & Air' },
-      { jp: { ja: '骨格との関係', en: 'Form' }, romaji: 'Form' },
+      { jp: { ja: '質感・空気感', en: 'Texture & Air', zh: '质感与空气感' }, romaji: 'Texture & Air' },
+      { jp: { ja: '骨格との関係', en: 'Form', zh: '与骨骼的关系' }, romaji: 'Form' },
     ],
-    body: { ja: '質感・空気感・骨格との関係を、ひとつの構造として捉え直す。', en: 'Reframe texture, air, and form as a single structure.' },
+    body: { ja: '質感・空気感・骨格との関係を、ひとつの構造として捉え直す。', en: 'Reframe texture, air, and form as a single structure.', zh: '将质感、空气感与骨骼的关系，重新理解为一个整体结构。' },
   },
   {
-    no: '04', en: 'Reproduction', kanji: { ja: '再現', en: 'Reproduction' },
+    no: '04', en: 'Reproduction', kanji: { ja: '再現', en: 'Reproduction', zh: '复现' },
     items: [
-      { jp: { ja: '再現性', en: 'Reproducibility' }, romaji: 'Reproducibility' },
-      { jp: { ja: '意図の共有', en: 'Intention' }, romaji: 'Intention' },
+      { jp: { ja: '再現性', en: 'Reproducibility', zh: '可复现性' }, romaji: 'Reproducibility' },
+      { jp: { ja: '意図の共有', en: 'Intention', zh: '意图的共享' }, romaji: 'Intention' },
     ],
-    body: { ja: '理論を手に戻す。誰が切っても、同じ意図に届くように。', en: 'Return theory to the hands—so anyone reaches the same intention.' },
+    body: { ja: '理論を手に戻す。誰が切っても、同じ意図に届くように。', en: 'Return theory to the hands—so anyone reaches the same intention.', zh: '让理论回到手中。无论谁来裁剪，都能抵达同样的意图。' },
   },
 ];
 
-export default function RtaAboutContents({ isEn = false }) {
+export default function RtaAboutContents({ lang = 'ja' }) {
   const [active, setActive] = useState(-1);
-  const t = (o) => (o ? (isEn ? o.en : o.ja) : '');
+  const t = (o) => (o ? (o[lang] ?? o.ja) : '');
 
   return (
     <section className="rta-contents-wrap" style={{ background: C.bg }}>
       <div className="rta-contents-head">
         <span className="rc-lbl">— The Process</span>
-        <span className="rc-idx">{isEn ? 'Contents' : '目次 / Contents'}</span>
+        <span className="rc-idx">{lang === 'zh' ? '目录 / Contents' : lang === 'en' ? 'Contents' : '目次 / Contents'}</span>
       </div>
 
       <div className="rta-chapters">

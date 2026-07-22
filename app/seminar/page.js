@@ -12,9 +12,11 @@ const upcomingSeminars = [
     name: 'Razor Basics Seminar',
     locJa: '福岡 / Fukuoka',
     locEn: 'Fukuoka / Fukuoka',
+    locZh: '福冈 / Fukuoka',
     status: 'UPCOMING',
     bodyJa: '福岡で開催する Razor Basics Seminar。レザーカットの理論と実践を、対面で深く学ぶセッション。',
     bodyEn: 'Razor Basics Seminar in Fukuoka—a session to deepen the theory and practice of razor cutting in person.',
+    bodyZh: '于福冈举办的 Razor Basics Seminar。以面对面的方式，深入研习剃刀切的理论与实践。',
   },
 ];
 
@@ -25,6 +27,7 @@ const pastSeminars = [
     name: 'Razor Basics Seminar',
     locJa: '東京 / Tokyo',
     locEn: 'Tokyo / Tokyo',
+    locZh: '东京 / Tokyo',
     status: 'PAST',
   },
   {
@@ -33,6 +36,7 @@ const pastSeminars = [
     name: 'Razor Basics Seminar',
     locJa: '名古屋 / Nagoya',
     locEn: 'Nagoya / Nagoya',
+    locZh: '名古屋 / Nagoya',
     status: 'PAST',
   },
   {
@@ -41,6 +45,7 @@ const pastSeminars = [
     name: 'Razor Basics Seminar',
     locJa: '台湾 / Taiwan',
     locEn: 'Taiwan / Taiwan',
+    locZh: '台湾 / Taiwan',
     status: 'PAST',
   },
   {
@@ -49,6 +54,7 @@ const pastSeminars = [
     name: 'Razor Basics Seminar',
     locJa: '台湾 / Taiwan',
     locEn: 'Taiwan / Taiwan',
+    locZh: '台湾 / Taiwan',
     status: 'PAST',
   },
   {
@@ -57,6 +63,7 @@ const pastSeminars = [
     name: 'Razor Basics Seminar',
     locJa: '香港 / Hong Kong',
     locEn: 'Hong Kong / Hong Kong',
+    locZh: '香港 / Hong Kong',
     status: 'PAST',
   },
   {
@@ -65,6 +72,7 @@ const pastSeminars = [
     name: 'Razor Basics Seminar',
     locJa: '香港 / Hong Kong',
     locEn: 'Hong Kong / Hong Kong',
+    locZh: '香港 / Hong Kong',
     status: 'PAST',
   },
 ];
@@ -72,7 +80,7 @@ const pastSeminars = [
 export default function SeminarPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang !== 'ja';
+  const loc = (s) => (lang === 'zh' ? s.locZh : lang === 'en' ? s.locEn : s.locJa);
 
   return (
     <main ref={mainRef} style={{background:'#2E3A4A', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#EDEBE5'}}>
@@ -114,15 +122,15 @@ export default function SeminarPage() {
             <div>
               <h2 className="seminar-detail-title" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(22px,2.8vw,36px)', fontWeight:300, lineHeight:1.2, marginBottom:20, color:'#EDEBE5'}}>{s.name}</h2>
               <div style={{display:'flex', flexWrap:'wrap', gap:24, marginBottom:24, fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.18em', textTransform:'uppercase'}}>
-                <span>{isEn ? s.locEn : s.locJa}</span>
+                <span>{loc(s)}</span>
                 <span>{s.status}</span>
               </div>
-              <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'rgba(237,235,229,0.72)', maxWidth:540}}>{isEn ? s.bodyEn : s.bodyJa}</p>
+              <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'rgba(237,235,229,0.72)', maxWidth:540}}>{lang === 'zh' ? s.bodyZh : lang === 'en' ? s.bodyEn : s.bodyJa}</p>
             </div>
 
             <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:18}}>
               <a href="/shop" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#EDEBE5', border:'1px solid rgba(237,235,229,0.15)', padding:'14px 24px', textDecoration:'none', whiteSpace:'nowrap'}}>
-                {isEn ? 'Apply →' : '申し込む →'}
+                {lang === 'zh' ? '报名 →' : lang === 'en' ? 'Apply →' : '申し込む →'}
               </a>
             </div>
           </article>
@@ -141,7 +149,7 @@ export default function SeminarPage() {
             <span style={{fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.18em'}}>{s.num}</span>
             <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:14, fontWeight:300}}>{s.date}</span>
             <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(15px,1.8vw,22px)', fontWeight:300}}>{s.name}</span>
-            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.12em'}}>{isEn ? s.locEn : s.locJa} · {s.status}</span>
+            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.12em'}}>{loc(s)} · {s.status}</span>
           </div>
         ))}
       </section>
@@ -227,7 +235,9 @@ export default function SeminarPage() {
               marginBottom:40,
             }}
           >
-            {isEn
+            {lang === 'zh'
+              ? '抢先获取全新课程与场次资讯。'
+              : lang === 'en'
               ? 'Be the first to receive new session announcements.'
               : '新しいセッション情報を、いち早く受け取る。'}
           </p>

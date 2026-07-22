@@ -9,7 +9,6 @@ import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 export default function ContactPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang !== 'ja';
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -26,9 +25,9 @@ export default function ContactPage() {
 
   const validate = () => {
     const e = {};
-    if (!form.name.trim()) e.name = isEn ? 'Please enter your name.' : 'お名前を入力してください。';
-    if (!form.email.trim() || !form.email.includes('@')) e.email = isEn ? 'Please enter a valid email address.' : '正しいメールアドレスを入力してください。';
-    if (!form.message.trim()) e.message = isEn ? 'Please enter a message.' : 'メッセージを入力してください。';
+    if (!form.name.trim()) e.name = lang === 'zh' ? '请输入您的姓名。' : lang === 'en' ? 'Please enter your name.' : 'お名前を入力してください。';
+    if (!form.email.trim() || !form.email.includes('@')) e.email = lang === 'zh' ? '请输入有效的邮箱地址。' : lang === 'en' ? 'Please enter a valid email address.' : '正しいメールアドレスを入力してください。';
+    if (!form.message.trim()) e.message = lang === 'zh' ? '请输入留言内容。' : lang === 'en' ? 'Please enter a message.' : 'メッセージを入力してください。';
     return e;
   };
 
@@ -56,7 +55,7 @@ export default function ContactPage() {
 
       setSubmitted(true);
     } catch {
-      setSubmitError(isEn ? 'Failed to send message.' : '送信に失敗しました。');
+      setSubmitError(lang === 'zh' ? '发送失败。' : lang === 'en' ? 'Failed to send message.' : '送信に失敗しました。');
     } finally {
       setLoading(false);
     }
@@ -81,7 +80,9 @@ export default function ContactPage() {
           Let's <em style={{fontStyle:'italic', color:'#FFFFFF'}}>talk</em>.
         </h1>
         <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#FFFFFF', lineHeight:2.1, maxWidth:560, opacity:0.85}}>
-          {isEn
+          {lang === 'zh'
+            ? '关于研讨会的咨询、合作洽谈，或就技术展开对话——欢迎随时给我们留言。'
+            : lang === 'en'
             ? 'Inquiries about seminars, collaboration, or dialogue on technique—please send a message anytime.'
             : 'セミナーへのお問い合わせ、コラボレーションのご相談、技術についての対話。お気軽にメッセージをお送りください。'}
         </p>
@@ -94,10 +95,12 @@ export default function ContactPage() {
               <div style={{border:'1px solid #C9956A', padding:'48px 36px', background:'#354656', textAlign:'center'}}>
                 <span style={{width:8, height:8, borderRadius:'50%', background:'#C9956A', display:'inline-block', marginBottom:20}}></span>
                 <h2 style={{fontFamily:'Cormorant Garamond, serif', fontSize:28, fontWeight:300, marginBottom:14, letterSpacing:'-0.01em'}}>
-                  {isEn ? 'Thank you.' : '送信しました。'}
+                  {lang === 'zh' ? '已送出。' : lang === 'en' ? 'Thank you.' : '送信しました。'}
                 </h2>
                 <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'rgba(237,235,229,0.72)', lineHeight:2}}>
-                  {isEn ? (
+                  {lang === 'zh' ? (
+                    <>我们已收到您的留言。<br />将在数个工作日内回复您。</>
+                  ) : lang === 'en' ? (
                     <>We have received your message.<br />We will reply within a few business days.</>
                   ) : (
                     <>メッセージを受け取りました。<br />数営業日以内にご返信いたします。</>
@@ -107,16 +110,16 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={handleSubmit} style={{display:'flex', flexDirection:'column', gap:32}}>
                 <Field
-                  label={isEn ? 'Name' : 'Name / お名前'}
+                  label={lang === 'zh' ? 'Name / 姓名' : lang === 'en' ? 'Name' : 'Name / お名前'}
                   num="01"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  placeholder={isEn ? 'Your name' : '山田 太郎'}
+                  placeholder={lang === 'zh' ? '您的姓名' : lang === 'en' ? 'Your name' : '山田 太郎'}
                   error={errors.name}
                 />
                 <Field
-                  label={isEn ? 'Email' : 'Email / メールアドレス'}
+                  label={lang === 'zh' ? 'Email / 邮箱' : lang === 'en' ? 'Email' : 'Email / メールアドレス'}
                   num="02"
                   name="email"
                   type="email"
@@ -126,19 +129,21 @@ export default function ContactPage() {
                   error={errors.email}
                 />
                 <Field
-                  label={isEn ? 'Message' : 'Message / メッセージ'}
+                  label={lang === 'zh' ? 'Message / 留言' : lang === 'en' ? 'Message' : 'Message / メッセージ'}
                   num="03"
                   name="message"
                   type="textarea"
                   value={form.message}
                   onChange={handleChange}
-                  placeholder={isEn ? 'Please describe your inquiry.' : 'ご相談内容をお書きください。'}
+                  placeholder={lang === 'zh' ? '请描述您的咨询内容。' : lang === 'en' ? 'Please describe your inquiry.' : 'ご相談内容をお書きください。'}
                   error={errors.message}
                 />
 
                 <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', gap:24, paddingTop:16, borderTop:'1px solid rgba(237,235,229,0.15)', flexWrap:'wrap'}}>
                   <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'rgba(237,235,229,0.72)', lineHeight:1.8, maxWidth:340}}>
-                    {isEn
+                    {lang === 'zh'
+                      ? '您提交的内容仅用于回复本次咨询。'
+                      : lang === 'en'
                       ? 'Your submission will be used only to respond to your inquiry.'
                       : '送信内容は、お問い合わせ対応の目的でのみ使用します。'}
                   </p>
@@ -164,7 +169,9 @@ export default function ContactPage() {
                       whiteSpace:'nowrap',
                     }}
                   >
-                    {loading ? 'Sending...' : 'Send Message →'}
+                    {loading
+                      ? (lang === 'zh' ? '发送中…' : 'Sending...')
+                      : (lang === 'zh' ? '发送留言 →' : 'Send Message →')}
                   </button>
                 </div>
                 </div>
