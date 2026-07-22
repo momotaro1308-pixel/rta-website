@@ -2,12 +2,12 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #EDEBE5;
-  --paper: #E5E2DA;
-  --black: #1C1A17;
+  --bg: #2E3A4A;
+  --paper: #354656;
+  --black: #EDEBE5;
   --accent: #C9956A;
-  --gray: #C4BFB7;
-  --gray-mid: #9A948C;
+  --gray: rgba(237, 235, 229, 0.15);
+  --gray-mid: rgba(237, 235, 229, 0.55);
 }
 
 * {

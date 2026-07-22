@@ -9,7 +9,7 @@ import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 export default function CartPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang === 'en';
+  const isEn = lang !== 'ja';
   const { cartItems, removeFromCart, clearCart } = useCart();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -56,11 +56,11 @@ export default function CartPage() {
     <main
       ref={mainRef}
       style={{
-        background: '#EDEBE5',
+        background: '#2E3A4A',
         minHeight: '100vh',
         fontFamily: 'DM Sans, sans-serif',
         fontWeight: 200,
-        color: '#1C1A17',
+        color: '#EDEBE5',
       }}
     >
       {success && (
@@ -71,7 +71,7 @@ export default function CartPage() {
             left: '50%',
             transform: 'translateX(-50%)',
             zIndex: 250,
-            background: '#E5E2DA',
+            background: '#354656',
             border: '1px solid #C9956A',
             padding: '16px 28px',
             display: 'flex',
@@ -92,7 +92,7 @@ export default function CartPage() {
             style={{
               fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
               fontSize: 12,
-              color: '#1C1A17',
+              color: '#EDEBE5',
             }}
           >
             {isEn ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}
@@ -104,7 +104,7 @@ export default function CartPage() {
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: '#9A948C',
+              color: 'rgba(237,235,229,0.72)',
               fontSize: 14,
               paddingLeft: 4,
             }}
@@ -118,7 +118,7 @@ export default function CartPage() {
 
       <section
         className="cart-header about-page-top"
-        style={{ padding: '180px 80px 80px', borderBottom: '1px solid #C4BFB7' }}
+        style={{ padding: '180px 80px 80px', borderBottom: '1px solid rgba(237,235,229,0.15)' }}
       >
         <div
           className="about-fade-up"
@@ -154,7 +154,7 @@ export default function CartPage() {
           style={{
             fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
             fontSize: 13,
-            color: '#9A948C',
+            color: 'rgba(237,235,229,0.72)',
             lineHeight: 2.1,
             maxWidth: 540,
           }}
@@ -172,7 +172,7 @@ export default function CartPage() {
               style={{
                 fontFamily: "'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif",
                 fontSize: 14,
-                color: '#9A948C',
+                color: 'rgba(237,235,229,0.72)',
                 marginBottom: 32,
               }}
             >
@@ -184,8 +184,8 @@ export default function CartPage() {
                 fontSize: 9,
                 letterSpacing: '0.28em',
                 textTransform: 'uppercase',
-                color: '#1C1A17',
-                border: '1px solid #C4BFB7',
+                color: '#EDEBE5',
+                border: '1px solid rgba(237,235,229,0.15)',
                 padding: '14px 24px',
                 textDecoration: 'none',
               }}
@@ -206,7 +206,7 @@ export default function CartPage() {
                     alignItems: 'center',
                     gap: 24,
                     padding: '28px 0',
-                    borderBottom: '1px solid #C4BFB7',
+                    borderBottom: '1px solid rgba(237,235,229,0.15)',
                   }}
                 >
                   <div>
@@ -220,7 +220,7 @@ export default function CartPage() {
                     >
                       {item.name}
                     </h2>
-                    <span style={{ fontSize: 9, letterSpacing: '0.22em', color: '#9A948C' }}>
+                    <span style={{ fontSize: 9, letterSpacing: '0.22em', color: 'rgba(237,235,229,0.72)' }}>
                       × {item.quantity}
                     </span>
                   </div>
@@ -241,7 +241,7 @@ export default function CartPage() {
                       fontSize: 9,
                       letterSpacing: '0.22em',
                       textTransform: 'uppercase',
-                      color: '#9A948C',
+                      color: 'rgba(237,235,229,0.72)',
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
@@ -259,7 +259,7 @@ export default function CartPage() {
               style={{
                 marginTop: 48,
                 paddingTop: 32,
-                borderTop: '1px solid #C4BFB7',
+                borderTop: '1px solid rgba(237,235,229,0.15)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -273,7 +273,7 @@ export default function CartPage() {
                     fontSize: 9,
                     letterSpacing: '0.32em',
                     textTransform: 'uppercase',
-                    color: '#9A948C',
+                    color: 'rgba(237,235,229,0.72)',
                     display: 'block',
                     marginBottom: 8,
                   }}
@@ -299,8 +299,8 @@ export default function CartPage() {
                   fontSize: 9,
                   letterSpacing: '0.28em',
                   textTransform: 'uppercase',
-                  color: loading ? '#9A948C' : '#1C1A17',
-                  border: '1px solid #C4BFB7',
+                  color: loading ? 'rgba(237,235,229,0.72)' : '#EDEBE5',
+                  border: '1px solid rgba(237,235,229,0.15)',
                   background: 'transparent',
                   padding: '16px 32px',
                   cursor: loading ? 'wait' : 'pointer',
@@ -324,7 +324,7 @@ export default function CartPage() {
         className="site-footer about-fade-up"
         style={{
           padding: '48px 80px',
-          borderTop: '1px solid #C4BFB7',
+          borderTop: '1px solid rgba(237,235,229,0.15)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -341,7 +341,7 @@ export default function CartPage() {
         >
           Razor Tech Archive
         </span>
-        <span style={{ fontSize: 9, letterSpacing: '0.18em', color: '#9A948C' }}>
+        <span style={{ fontSize: 9, letterSpacing: '0.18em', color: 'rgba(237,235,229,0.72)' }}>
           © 2026 Razor Tech Archive
         </span>
         <div style={{ display: 'flex', gap: 24 }}>
@@ -353,7 +353,7 @@ export default function CartPage() {
               fontSize: 9,
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
-              color: '#9A948C',
+              color: 'rgba(237,235,229,0.72)',
               textDecoration: 'none',
             }}
           >
@@ -365,7 +365,7 @@ export default function CartPage() {
               fontSize: 9,
               letterSpacing: '0.22em',
               textTransform: 'uppercase',
-              color: '#9A948C',
+              color: 'rgba(237,235,229,0.72)',
               textDecoration: 'none',
             }}
           >

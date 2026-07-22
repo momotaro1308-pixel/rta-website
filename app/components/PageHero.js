@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 const HERO_GRADIENT =
-  'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(237,235,229,0.3) 70%, rgba(237,235,229,1) 100%)';
+  'linear-gradient(to bottom, rgba(20,26,34,0.35) 0%, rgba(20,26,34,0) 35%, rgba(46,58,74,0.4) 70%, rgba(46,58,74,1) 100%)';
 
 export default function PageHero({
   src,
@@ -31,7 +31,7 @@ export default function PageHero({
         position: 'relative',
         width: '100%',
         height: '100vh',
-        background: '#EDEBE5',
+        background: '#2E3A4A',
         overflow: 'hidden',
       }}
     >

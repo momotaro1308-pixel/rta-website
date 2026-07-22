@@ -7,12 +7,12 @@ import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const C = {
-  bg: '#F4F0E8',
-  panel: '#EAE4DC',
-  panelAlt: '#EDE7DF',
-  text: '#2C2823',
-  muted: '#8A8278',
-  border: '#C8C0B4',
+  bg: '#2E3A4A',
+  panel: '#354656',
+  panelAlt: '#323E4D',
+  text: '#EDEBE5',
+  muted: 'rgba(237,235,229,0.6)',
+  border: 'rgba(237,235,229,0.15)',
 };
 
 const labelStyle = {
@@ -80,7 +80,7 @@ function TextButton({ href, children }) {
 export default function AboutPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang === 'en';
+  const isEn = lang !== 'ja';
 
   const heroTagline = isEn
     ? '"An Archive that Preserves Sensation"'
@@ -118,7 +118,7 @@ export default function AboutPage() {
             position: 'absolute',
             inset: 0,
             background:
-              'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(244,240,232,0.3) 70%, rgba(244,240,232,1) 100%)',
+              'linear-gradient(to bottom, rgba(20,26,34,0.35) 0%, rgba(20,26,34,0) 35%, rgba(46,58,74,0.4) 70%, rgba(46,58,74,1) 100%)',
             zIndex: 5,
             pointerEvents: 'none',
           }}
@@ -312,7 +312,7 @@ export default function AboutPage() {
 
       <style>{`
         .about-page .site-nav {
-          background: rgba(244, 240, 232, 0.72) !important;
+          background: rgba(46, 58, 74, 0.72) !important;
           backdrop-filter: blur(6px) !important;
           border-bottom: 0.5px solid ${C.border} !important;
         }

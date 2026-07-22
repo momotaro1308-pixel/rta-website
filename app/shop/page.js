@@ -40,7 +40,7 @@ export default function Shop() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
   const { addToCart } = useCart();
-  const isEn = lang === 'en';
+  const isEn = lang !== 'ja';
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -61,13 +61,13 @@ export default function Shop() {
   };
 
   return (
-    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#2E3A4A', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#EDEBE5'}}>
 
       {success && (
-        <div style={{position:'fixed', top:96, left:'50%', transform:'translateX(-50%)', zIndex:250, background:'#E5E2DA', border:'1px solid #C9956A', padding:'16px 28px', display:'flex', alignItems:'center', gap:16}}>
+        <div style={{position:'fixed', top:96, left:'50%', transform:'translateX(-50%)', zIndex:250, background:'#354656', border:'1px solid #C9956A', padding:'16px 28px', display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:6, height:6, borderRadius:'50%', background:'#C9956A', display:'inline-block'}}></span>
-          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#1C1A17'}}>{isEn ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}</span>
-          <button onClick={() => setSuccess(false)} style={{background:'none', border:'none', cursor:'pointer', color:'#9A948C', fontSize:14, paddingLeft:4}}>×</button>
+          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, color:'#EDEBE5'}}>{isEn ? 'Thank you for your order.' : 'ご注文ありがとうございました。'}</span>
+          <button onClick={() => setSuccess(false)} style={{background:'none', border:'none', cursor:'pointer', color:'rgba(237,235,229,0.72)', fontSize:14, paddingLeft:4}}>×</button>
         </div>
       )}
 
@@ -103,29 +103,29 @@ export default function Shop() {
             const statusLabel = getStatusLabel(p.status);
             return (
               <article key={p.id} className="product-card about-fade-up" style={{display:'flex', flexDirection:'column', opacity: unavailable ? 0.55 : 1, transition:'opacity 0.3s'}}>
-                <div style={{aspectRatio:'1/1', background:'#D9D5CC', border:'1px solid #C4BFB7', marginBottom:28, position:'relative', overflow:'hidden'}}>
-                  <span style={{position:'absolute', top:16, left:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'#9A948C'}}>0{idx + 1}</span>
-                  <span style={{position:'absolute', top:16, right:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: p.category === 'Seminar' ? '#C9956A' : '#9A948C'}}>{p.category}</span>
-                  <span style={{position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', fontFamily:'Cormorant Garamond, serif', fontSize:10, letterSpacing:'0.3em', color:'#C4BFB7', textTransform:'uppercase'}}>
+                <div style={{aspectRatio:'1/1', background:'#354656', border:'1px solid rgba(237,235,229,0.15)', marginBottom:28, position:'relative', overflow:'hidden'}}>
+                  <span style={{position:'absolute', top:16, left:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)'}}>0{idx + 1}</span>
+                  <span style={{position:'absolute', top:16, right:16, fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: p.category === 'Seminar' ? '#C9956A' : 'rgba(237,235,229,0.72)'}}>{p.category}</span>
+                  <span style={{position:'absolute', top:'50%', left:'50%', transform:'translate(-50%,-50%)', fontFamily:'Cormorant Garamond, serif', fontSize:10, letterSpacing:'0.3em', color:'rgba(237,235,229,0.15)', textTransform:'uppercase'}}>
                     {p.category === 'Seminar' ? 'Ticket' : 'Product Image'}
                   </span>
                   {unavailable && (
-                    <div style={{position:'absolute', bottom:16, left:16, right:16, borderTop:'1px solid #C4BFB7', paddingTop:12, display:'flex', alignItems:'center', justifyContent:'space-between'}}>
-                      <span style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#1C1A17'}}>{statusLabel}</span>
-                      <span style={{width:6, height:6, borderRadius:'50%', background:'#1C1A17'}}></span>
+                    <div style={{position:'absolute', bottom:16, left:16, right:16, borderTop:'1px solid rgba(237,235,229,0.15)', paddingTop:12, display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                      <span style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#EDEBE5'}}>{statusLabel}</span>
+                      <span style={{width:6, height:6, borderRadius:'50%', background:'#EDEBE5'}}></span>
                     </div>
                   )}
                 </div>
                 <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:14, letterSpacing:'-0.01em'}}>{isEn ? p.nameEn : p.nameJa}</h2>
-                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'#9A948C', marginBottom:32}}>{isEn ? p.descEn : p.descJa}</p>
-                <div style={{marginTop:'auto', paddingTop:24, borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap'}}>
+                <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'rgba(237,235,229,0.72)', marginBottom:32}}>{isEn ? p.descEn : p.descJa}</p>
+                <div style={{marginTop:'auto', paddingTop:24, borderTop:'1px solid rgba(237,235,229,0.15)', display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap'}}>
                   {p.price != null ? (
                     <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:22, fontWeight:300}}>¥{p.price.toLocaleString()}</span>
                   ) : (
                     <span />
                   )}
                   {unavailable ? (
-                    <span style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#9A948C'}}>
+                    <span style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)'}}>
                       {statusLabel}
                     </span>
                   ) : (
@@ -136,8 +136,8 @@ export default function Shop() {
                         fontSize:9,
                         letterSpacing:'0.28em',
                         textTransform:'uppercase',
-                        color: isAdded ? '#C9956A' : '#1C1A17',
-                        border: '1px solid #C4BFB7',
+                        color: isAdded ? '#C9956A' : '#EDEBE5',
+                        border: '1px solid rgba(237,235,229,0.15)',
                         background: 'transparent',
                         padding:'14px 24px',
                         cursor: 'pointer',
@@ -158,12 +158,12 @@ export default function Shop() {
       </section>
 
       {/* FOOTER */}
-      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid rgba(237,235,229,0.15)', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
-        <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
+        <span style={{fontSize:9, letterSpacing:'0.18em', color:'rgba(237,235,229,0.72)'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>
-          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
-          <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Contact</a>
+          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', textDecoration:'none'}}>Instagram</a>
+          <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', textDecoration:'none'}}>Contact</a>
         </div>
       </footer>
 

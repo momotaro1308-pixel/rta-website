@@ -3,10 +3,10 @@
 import { useState } from 'react';
 
 const C = {
-  bg: '#EDEBE5',
-  ink: '#2A2620',
-  muted: '#9A948C',
-  line: '#BEB8AE',
+  bg: '#2E3A4A',
+  ink: '#EDEBE5',
+  muted: 'rgba(237,235,229,0.6)',
+  line: 'rgba(237,235,229,0.15)',
   accent: '#C9956A',
 };
 

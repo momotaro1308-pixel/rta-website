@@ -93,10 +93,10 @@ function SectionLabel({ children }) {
 export default function MembersPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang === 'en';
+  const isEn = lang !== 'ja';
 
   return (
-    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#2E3A4A', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#EDEBE5'}}>
       <Nav />
 
       {/* 1. HERO */}
@@ -121,8 +121,8 @@ export default function MembersPage() {
       <SubscriptionPhilosophy />
 
       {/* 2. SUBSCRIPTION PURPOSE */}
-      <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid #C4BFB7'}}>
-        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#1C1A17', fontWeight:300, maxWidth:720}}>
+      <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, maxWidth:720}}>
           {isEn ? (
             <>
               Not &ldquo;watching videos.&rdquo;<br />
@@ -138,7 +138,7 @@ export default function MembersPage() {
       </section>
 
       {/* 3. STEP 1–5 */}
-      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
+      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Learning Path — STEP 1–5</SectionLabel>
         {steps.map((s) => (
           <div
@@ -150,19 +150,19 @@ export default function MembersPage() {
               alignItems:'baseline',
               gap:24,
               padding:'32px 0',
-              borderBottom:'1px solid #C4BFB7',
+              borderBottom:'1px solid rgba(237,235,229,0.15)',
             }}
           >
             <div style={{display:'flex', flexWrap:'wrap', alignItems:'baseline', gap:'8px 16px', minWidth:0}}>
               <span style={{fontSize:9, color:'#C9956A', letterSpacing:'0.32em', flexShrink:0}}>{s.step}</span>
-              <span style={{color:'#C4BFB7', flexShrink:0}}>｜</span>
+              <span style={{color:'rgba(237,235,229,0.15)', flexShrink:0}}>｜</span>
               <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.4vw,28px)', fontWeight:300, letterSpacing:'-0.01em', flexShrink:0}}>{s.en}</span>
-              <span style={{color:'#C4BFB7', flexShrink:0}}>—</span>
-              <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#1C1A17', fontWeight:300}}>
+              <span style={{color:'rgba(237,235,229,0.15)', flexShrink:0}}>—</span>
+              <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#EDEBE5', fontWeight:300}}>
                 {isEn ? s.jpEn : s.jp}
               </span>
             </div>
-            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#9A948C', letterSpacing:'0.06em', whiteSpace:'nowrap', flexShrink:0}}>
+            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'rgba(237,235,229,0.72)', letterSpacing:'0.06em', whiteSpace:'nowrap', flexShrink:0}}>
               Goal：{isEn ? s.goalEn : s.goalJa}
             </span>
           </div>
@@ -170,11 +170,11 @@ export default function MembersPage() {
       </section>
 
       {/* 4. ARCHIVE SYSTEM */}
-      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
+      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Archive System</SectionLabel>
         <div className="members-archive-grid about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start'}}>
           <div>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#1C1A17', fontWeight:300, marginBottom:32}}>
+            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, marginBottom:32}}>
               {isEn ? (
                 <>
                   Not simply a video library.<br />
@@ -188,8 +188,8 @@ export default function MembersPage() {
               )}
             </p>
           </div>
-          <div style={{border:'1px solid #C4BFB7', padding:'36px 32px', background:'#E5E2DA'}}>
-            <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#9A948C', marginBottom:24}}>— Tags</div>
+          <div style={{border:'1px solid rgba(237,235,229,0.15)', padding:'36px 32px', background:'#354656'}}>
+            <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', marginBottom:24}}>— Tags</div>
             <div style={{display:'flex', flexWrap:'wrap', gap:10}}>
               {archiveTags.map((tag) => (
                 <span
@@ -198,10 +198,10 @@ export default function MembersPage() {
                     fontSize:9,
                     letterSpacing:'0.22em',
                     textTransform:'uppercase',
-                    color:'#1C1A17',
-                    border:'1px solid #C4BFB7',
+                    color:'#EDEBE5',
+                    border:'1px solid rgba(237,235,229,0.15)',
                     padding:'10px 14px',
-                    background:'#EDEBE5',
+                    background:'#2E3A4A',
                   }}
                 >
                   {tag}
@@ -213,7 +213,7 @@ export default function MembersPage() {
       </section>
 
       {/* 5. SUBSCRIPTION PLAN */}
-      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
+      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Subscription Plan</SectionLabel>
         <div className="members-plans-grid" style={{display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap:32}}>
           {plans.map((plan) => (
@@ -221,21 +221,21 @@ export default function MembersPage() {
               key={plan.name}
               className="about-fade-up"
               style={{
-                border: plan.highlight ? '1px solid #C9956A' : '1px solid #C4BFB7',
+                border: plan.highlight ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)',
                 padding:'40px 32px',
-                background: plan.highlight ? '#E5E2DA' : 'transparent',
+                background: plan.highlight ? '#354656' : 'transparent',
                 display:'flex',
                 flexDirection:'column',
                 minHeight:360,
               }}
             >
               <h3 style={{fontFamily:'Cormorant Garamond, serif', fontSize:26, fontWeight:300, marginBottom:8, letterSpacing:'-0.01em'}}>{plan.name}</h3>
-              <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#C9956A', letterSpacing:'0.12em', marginBottom:28, paddingBottom:28, borderBottom:'1px solid #C4BFB7'}}>
+              <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#C9956A', letterSpacing:'0.12em', marginBottom:28, paddingBottom:28, borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
                 — {isEn ? plan.taglineEn : plan.taglineJa}
               </p>
               <ul style={{listStyle:'none', flex:1, display:'flex', flexDirection:'column', gap:14}}>
                 {(isEn ? plan.featuresEn : plan.featuresJa).map((f) => (
-                  <li key={f} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.85, color:'#9A948C', paddingLeft:16, position:'relative'}}>
+                  <li key={f} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.85, color:'rgba(237,235,229,0.72)', paddingLeft:16, position:'relative'}}>
                     <span style={{position:'absolute', left:0, top:'0.55em', width:4, height:4, borderRadius:'50%', background:'#C9956A'}} />
                     {f}
                   </li>
@@ -249,12 +249,12 @@ export default function MembersPage() {
                   fontSize:9,
                   letterSpacing:'0.28em',
                   textTransform:'uppercase',
-                  color:'#1C1A17',
-                  border:'1px solid #C4BFB7',
+                  color: plan.highlight ? '#2A2620' : '#EDEBE5',
+                  border: plan.highlight ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)',
                   padding:'16px 24px',
                   textDecoration:'none',
                   textAlign:'center',
-                  background: plan.highlight ? '#EDEBE5' : 'transparent',
+                  background: plan.highlight ? '#C9956A' : 'transparent',
                 }}
               >
                 Inquire →
@@ -265,22 +265,22 @@ export default function MembersPage() {
       </section>
 
       {/* 6. OFFLINE CONNECTION */}
-      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7'}}>
+      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Offline Connection</SectionLabel>
         <div className="members-offline about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80}}>
-          <div style={{padding:'40px 36px', border:'1px solid #C4BFB7', background:'#E5E2DA'}}>
+          <div style={{padding:'40px 36px', border:'1px solid rgba(237,235,229,0.15)', background:'#354656'}}>
             <p style={{fontSize:9, letterSpacing:'0.38em', textTransform:'uppercase', color:'#C9956A', marginBottom:20}}>
               {isEn ? 'Online' : 'オンライン'}
             </p>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#1C1A17', fontWeight:300}}>
+            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#EDEBE5', fontWeight:300}}>
               {isEn ? 'Theory · Observation · Way of seeing' : '理論・観察・見方'}
             </p>
           </div>
-          <div style={{padding:'40px 36px', border:'1px solid #C4BFB7'}}>
+          <div style={{padding:'40px 36px', border:'1px solid rgba(237,235,229,0.15)'}}>
             <p style={{fontSize:9, letterSpacing:'0.38em', textTransform:'uppercase', color:'#C9956A', marginBottom:20}}>
               {isEn ? 'Offline' : 'オフライン'}
             </p>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#1C1A17', fontWeight:300}}>
+            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(16px,1.8vw,22px)', lineHeight:2, color:'#EDEBE5', fontWeight:300}}>
               {isEn ? 'Pressure · Heat · Distance · Air · Sensation of the hands' : '圧・熱・距離・空気・手の感覚'}
             </p>
           </div>
@@ -288,21 +288,21 @@ export default function MembersPage() {
       </section>
 
       {/* 7. RTA GOAL */}
-      <section className="section-pad members-goal" style={{padding:'140px 80px', borderBottom:'1px solid #C4BFB7', textAlign:'center'}}>
+      <section className="section-pad members-goal" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)', textAlign:'center'}}>
         <p className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:32}}>
           RTA Goal
         </p>
-        <p className="about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px,3.5vw,48px)', fontStyle:'italic', fontWeight:300, lineHeight:1.35, color:'#1C1A17', letterSpacing:'-0.02em'}}>
+        <p className="about-fade-up" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(28px,3.5vw,48px)', fontStyle:'italic', fontWeight:300, lineHeight:1.35, color:'#EDEBE5', letterSpacing:'-0.02em'}}>
           {isEn ? '"Change how hair is seen."' : '"髪の見え方"を変える。'}
         </p>
       </section>
 
       <footer className="site-footer about-fade-up" style={{padding:'48px 80px', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
-        <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
+        <span style={{fontSize:9, letterSpacing:'0.18em', color:'rgba(237,235,229,0.72)'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>
-          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
-          <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Contact</a>
+          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', textDecoration:'none'}}>Instagram</a>
+          <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', textDecoration:'none'}}>Contact</a>
         </div>
       </footer>
 

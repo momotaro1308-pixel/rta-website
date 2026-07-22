@@ -4,15 +4,20 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 
 const LangContext = createContext(null);
 
+const LANGS = ['ja', 'en', 'zh'];
+
 export function LangProvider({ children }) {
   const [lang, setLang] = useState('ja');
 
   useEffect(() => {
-    document.documentElement.lang = lang === 'ja' ? 'ja' : 'en';
+    document.documentElement.lang = LANGS.includes(lang) ? lang : 'ja';
   }, [lang]);
 
   const toggleLang = useCallback(() => {
-    setLang((l) => (l === 'ja' ? 'en' : 'ja'));
+    setLang((l) => {
+      const i = LANGS.indexOf(l);
+      return LANGS[(i + 1) % LANGS.length];
+    });
   }, []);
 
   const value = useMemo(

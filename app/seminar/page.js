@@ -72,16 +72,16 @@ const pastSeminars = [
 export default function SeminarPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
-  const isEn = lang === 'en';
+  const isEn = lang !== 'ja';
 
   return (
-    <main ref={mainRef} style={{background:'#EDEBE5', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#1C1A17'}}>
+    <main ref={mainRef} style={{background:'#2E3A4A', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#EDEBE5'}}>
       <Nav />
 
       {/* HERO PHOTO */}
-      <section className="seminar-hero" style={{position:'relative', width:'100%', height:'100vh', overflow:'hidden', borderBottom:'1px solid #C4BFB7'}}>
+      <section className="seminar-hero" style={{position:'relative', width:'100%', height:'100vh', overflow:'hidden', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <HeroImage src="/seminar-hero.jpg" alt="Razor Tech Archive — Seminars & Sessions" parallax priority />
-        <div aria-hidden="true" style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(237,235,229,0.3) 70%, rgba(237,235,229,1) 100%)', zIndex:5, pointerEvents:'none'}}></div>
+        <div aria-hidden="true" style={{position:'absolute', inset:0, background:'linear-gradient(to bottom, rgba(20,26,34,0.35) 0%, rgba(20,26,34,0) 35%, rgba(46,58,74,0.4) 70%, rgba(46,58,74,1) 100%)', zIndex:5, pointerEvents:'none'}}></div>
 
         <div className="seminar-hero-content about-page-top" style={{position:'absolute', inset:0, zIndex:10, display:'flex', flexDirection:'column', justifyContent:'center', padding:'180px 80px 80px'}}>
           <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#FFFFFF', marginBottom:36, display:'flex', alignItems:'center', gap:16, opacity:0.85}}>
@@ -105,23 +105,23 @@ export default function SeminarPage() {
         </div>
 
         {upcomingSeminars.map((s) => (
-          <article key={s.num} className="seminar-detail about-fade-up" style={{display:'grid', gridTemplateColumns:'200px 1fr 200px', gap:60, padding:'56px 0', borderTop:'1px solid #C4BFB7', alignItems:'start'}}>
+          <article key={s.num} className="seminar-detail about-fade-up" style={{display:'grid', gridTemplateColumns:'200px 1fr 200px', gap:60, padding:'56px 0', borderTop:'1px solid rgba(237,235,229,0.15)', alignItems:'start'}}>
             <div>
-              <div style={{fontSize:10, color:'#9A948C', letterSpacing:'0.22em', marginBottom:14}}>{s.num} / {s.status}</div>
+              <div style={{fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.22em', marginBottom:14}}>{s.num} / {s.status}</div>
               <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:28, fontWeight:300, lineHeight:1.1, letterSpacing:'-0.01em'}}>{s.date}</div>
             </div>
 
             <div>
-              <h2 className="seminar-detail-title" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(22px,2.8vw,36px)', fontWeight:300, lineHeight:1.2, marginBottom:20, color:'#1C1A17'}}>{s.name}</h2>
-              <div style={{display:'flex', flexWrap:'wrap', gap:24, marginBottom:24, fontSize:10, color:'#9A948C', letterSpacing:'0.18em', textTransform:'uppercase'}}>
+              <h2 className="seminar-detail-title" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(22px,2.8vw,36px)', fontWeight:300, lineHeight:1.2, marginBottom:20, color:'#EDEBE5'}}>{s.name}</h2>
+              <div style={{display:'flex', flexWrap:'wrap', gap:24, marginBottom:24, fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.18em', textTransform:'uppercase'}}>
                 <span>{isEn ? s.locEn : s.locJa}</span>
                 <span>{s.status}</span>
               </div>
-              <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'#9A948C', maxWidth:540}}>{isEn ? s.bodyEn : s.bodyJa}</p>
+              <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.1, color:'rgba(237,235,229,0.72)', maxWidth:540}}>{isEn ? s.bodyEn : s.bodyJa}</p>
             </div>
 
             <div style={{display:'flex', flexDirection:'column', alignItems:'flex-end', gap:18}}>
-              <a href="/shop" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#1C1A17', border:'1px solid #C4BFB7', padding:'14px 24px', textDecoration:'none', whiteSpace:'nowrap'}}>
+              <a href="/shop" style={{fontSize:9, letterSpacing:'0.28em', textTransform:'uppercase', color:'#EDEBE5', border:'1px solid rgba(237,235,229,0.15)', padding:'14px 24px', textDecoration:'none', whiteSpace:'nowrap'}}>
                 {isEn ? 'Apply →' : '申し込む →'}
               </a>
             </div>
@@ -130,18 +130,18 @@ export default function SeminarPage() {
       </section>
 
       {/* PAST */}
-      <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid #C4BFB7'}}>
+      <section className="section-pad" style={{padding:'140px 80px', borderTop:'1px solid rgba(237,235,229,0.15)'}}>
         <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
           <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}}></span>
           Past — Archive
         </div>
 
         {pastSeminars.map((s) => (
-          <div key={s.num} className="past-row about-fade-up" style={{display:'grid', gridTemplateColumns:'80px 140px 1fr auto', gap:48, padding:'32px 0', borderBottom:'1px solid #C4BFB7', alignItems:'center', opacity:0.6}}>
-            <span style={{fontSize:10, color:'#9A948C', letterSpacing:'0.18em'}}>{s.num}</span>
+          <div key={s.num} className="past-row about-fade-up" style={{display:'grid', gridTemplateColumns:'80px 140px 1fr auto', gap:48, padding:'32px 0', borderBottom:'1px solid rgba(237,235,229,0.15)', alignItems:'center', opacity:0.6}}>
+            <span style={{fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.18em'}}>{s.num}</span>
             <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:14, fontWeight:300}}>{s.date}</span>
             <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(15px,1.8vw,22px)', fontWeight:300}}>{s.name}</span>
-            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'#9A948C', letterSpacing:'0.12em'}}>{isEn ? s.locEn : s.locJa} · {s.status}</span>
+            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:10, color:'rgba(237,235,229,0.72)', letterSpacing:'0.12em'}}>{isEn ? s.locEn : s.locJa} · {s.status}</span>
           </div>
         ))}
       </section>
@@ -155,8 +155,8 @@ export default function SeminarPage() {
           height:'70vh',
           minHeight:420,
           overflow:'hidden',
-          borderTop:'1px solid #C4BFB7',
-          borderBottom:'1px solid #C4BFB7',
+          borderTop:'1px solid rgba(237,235,229,0.15)',
+          borderBottom:'1px solid rgba(237,235,229,0.15)',
         }}
       >
         <HeroImage src="/seminar-about.jpg" alt="精密なカットと仕上がり — RTA セッション" parallax />
@@ -165,7 +165,7 @@ export default function SeminarPage() {
           style={{
             position:'absolute',
             inset:0,
-            background:'linear-gradient(to bottom, rgba(28,26,23,0.2) 0%, rgba(28,26,23,0) 35%, rgba(237,235,229,0.3) 70%, rgba(237,235,229,1) 100%)',
+            background:'linear-gradient(to bottom, rgba(20,26,34,0.35) 0%, rgba(20,26,34,0) 35%, rgba(46,58,74,0.4) 70%, rgba(46,58,74,1) 100%)',
             zIndex:5,
             pointerEvents:'none',
           }}
@@ -252,12 +252,12 @@ export default function SeminarPage() {
       </section>
 
       {/* FOOTER */}
-      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid #C4BFB7', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+      <footer className="site-footer about-fade-up" style={{padding:'48px 80px', borderTop:'1px solid rgba(237,235,229,0.15)', display:'flex', alignItems:'center', justifyContent:'space-between'}}>
         <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:13, letterSpacing:'0.3em', textTransform:'uppercase', opacity:0.5}}>Razor Tech Archive</span>
-        <span style={{fontSize:9, letterSpacing:'0.18em', color:'#9A948C'}}>© 2026 Razor Tech Archive</span>
+        <span style={{fontSize:9, letterSpacing:'0.18em', color:'rgba(237,235,229,0.72)'}}>© 2026 Razor Tech Archive</span>
         <div style={{display:'flex', gap:24}}>
-          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Instagram</a>
-          <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'#9A948C', textDecoration:'none'}}>Contact</a>
+          <a href="https://www.instagram.com/razor_techarchive" target="_blank" rel="noopener noreferrer" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', textDecoration:'none'}}>Instagram</a>
+          <a href="/contact" style={{fontSize:9, letterSpacing:'0.22em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', textDecoration:'none'}}>Contact</a>
         </div>
       </footer>
 
