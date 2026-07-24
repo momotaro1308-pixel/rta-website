@@ -8,16 +8,33 @@ import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const products = [
+  // TODO: テスト用商品。Stripe決済テスト用のため本番前に削除すること。
+  {
+    id: 'test-item',
+    nameJa: 'TEST ITEM',
+    nameEn: 'TEST ITEM',
+    nameZh: 'TEST ITEM',
+    category: 'Product',
+    status: 'available',
+    price: 100,
+    descJa: '【テスト用】Stripe決済動作確認用のダミー商品。本番前に削除します。',
+    descEn: '[Test] Dummy product for verifying Stripe checkout. To be removed before launch.',
+    descZh: '【测试用】用于验证 Stripe 结账流程的示例商品，上线前将删除。',
+  },
   {
     id: 'razor-seminar',
     nameJa: 'Razor Basics Seminar',
     nameEn: 'Razor Basics Seminar',
     nameZh: 'Razor Basics Seminar',
     category: 'Seminar',
-    status: 'soldOut',
+    status: 'available',
     descJa: 'レザーカットの理論と実践を深く学ぶ、RTAのセミナー。',
     descEn: 'RTA seminar exploring the theory and practice of razor cutting.',
     descZh: '深入研习剃刀切理论与实践的 RTA 研讨会。',
+    options: [
+      { id: 'seminar-morning', price: 8000, labelEn: 'Morning', nameJa: '午前のみ', nameEn: 'Morning Only', nameZh: '仅上午' },
+      { id: 'seminar-fullday', price: 13000, labelEn: 'Full Day', nameJa: '午前＋午後', nameEn: 'Full Day', nameZh: '全天' },
+    ],
   },
   {
     id: 'comb',
@@ -41,9 +58,18 @@ function getStatusLabel(status) {
 export default function Shop() {
   const [success, setSuccess] = useState(false);
   const [addedId, setAddedId] = useState(null);
+  const [selectedOptions, setSelectedOptions] = useState({});
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
   const { addToCart } = useCart();
+
+  const t3 = (ja, en, zh) => (lang === 'zh' ? zh : lang === 'en' ? en : ja);
+
+  const getSelectedOption = (product) => {
+    if (!product.options) return null;
+    const selectedId = selectedOptions[product.id] ?? product.options[0].id;
+    return product.options.find((o) => o.id === selectedId) ?? product.options[0];
+  };
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -54,12 +80,18 @@ export default function Shop() {
 
   const handleAddToCart = (product) => {
     if (product.status !== 'available') return;
-    addToCart({
-      id: product.id,
-      name: lang === 'zh' ? product.nameZh : lang === 'en' ? product.nameEn : product.nameJa,
-      price: product.price,
-    });
-    setAddedId(product.id);
+    const productName = t3(product.nameJa, product.nameEn, product.nameZh);
+    let item;
+    if (product.options) {
+      const opt = getSelectedOption(product);
+      const optName = t3(opt.nameJa, opt.nameEn, opt.nameZh);
+      const name = lang === 'en' ? `${productName} (${optName})` : `${productName}（${optName}）`;
+      item = { id: opt.id, name, price: opt.price };
+    } else {
+      item = { id: product.id, name: productName, price: product.price };
+    }
+    addToCart(item);
+    setAddedId(item.id);
     setTimeout(() => setAddedId(null), 1500);
   };
 
@@ -103,9 +135,12 @@ export default function Shop() {
       <section className="section-pad" style={{padding:'120px 80px'}}>
         <div className="products-grid" style={{display:'grid', gridTemplateColumns:'repeat(2, 1fr)', gap:60}}>
           {products.map((p, idx) => {
-            const isAdded = addedId === p.id;
+            const selectedOption = getSelectedOption(p);
+            const currentItemId = selectedOption ? selectedOption.id : p.id;
+            const isAdded = addedId === currentItemId;
             const unavailable = p.status !== 'available';
             const statusLabel = getStatusLabel(p.status);
+            const displayPrice = selectedOption ? selectedOption.price : p.price;
             return (
               <article key={p.id} className="product-card about-fade-up" style={{display:'flex', flexDirection:'column', opacity: unavailable ? 0.55 : 1, transition:'opacity 0.3s'}}>
                 <div style={{aspectRatio:'1/1', background:'#354656', border:'1px solid rgba(237,235,229,0.15)', marginBottom:28, position:'relative', overflow:'hidden'}}>
@@ -123,9 +158,39 @@ export default function Shop() {
                 </div>
                 <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:14, letterSpacing:'-0.01em'}}>{lang === 'zh' ? p.nameZh : lang === 'en' ? p.nameEn : p.nameJa}</h2>
                 <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'rgba(237,235,229,0.72)', marginBottom:32}}>{lang === 'zh' ? p.descZh : lang === 'en' ? p.descEn : p.descJa}</p>
+                {p.options && (
+                  <div className="seminar-options" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:32}}>
+                    {p.options.map((opt) => {
+                      const selected = selectedOption && selectedOption.id === opt.id;
+                      return (
+                        <button
+                          type="button"
+                          key={opt.id}
+                          onClick={() => setSelectedOptions((prev) => ({ ...prev, [p.id]: opt.id }))}
+                          aria-pressed={selected}
+                          style={{
+                            textAlign:'left',
+                            cursor:'pointer',
+                            padding:'16px 16px',
+                            border: selected ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)',
+                            background: selected ? 'rgba(201,149,106,0.09)' : 'transparent',
+                            transition:'border-color .35s, background-color .35s, color .35s',
+                            display:'flex',
+                            flexDirection:'column',
+                            gap:8,
+                          }}
+                        >
+                          <span style={{fontFamily:'DM Sans, sans-serif', fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: selected ? '#C9956A' : 'rgba(237,235,229,0.72)', transition:'color .35s'}}>{opt.labelEn}</span>
+                          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#EDEBE5'}}>{t3(opt.nameJa, opt.nameEn, opt.nameZh)}</span>
+                          <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:18, fontWeight:300, color:'#EDEBE5'}}>¥{opt.price.toLocaleString()}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
                 <div style={{marginTop:'auto', paddingTop:24, borderTop:'1px solid rgba(237,235,229,0.15)', display:'flex', alignItems:'center', justifyContent:'space-between', gap:16, flexWrap:'wrap'}}>
-                  {p.price != null ? (
-                    <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:22, fontWeight:300}}>¥{p.price.toLocaleString()}</span>
+                  {displayPrice != null ? (
+                    <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:22, fontWeight:300}}>¥{displayPrice.toLocaleString()}</span>
                   ) : (
                     <span />
                   )}
@@ -189,6 +254,9 @@ export default function Shop() {
           }
           .product-name {
             font-size: 20px !important;
+          }
+          .seminar-options {
+            grid-template-columns: 1fr !important;
           }
         }
       `}</style>

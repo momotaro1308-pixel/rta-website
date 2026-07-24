@@ -1,11 +1,36 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 const CartContext = createContext(null);
 
+const STORAGE_KEY = 'rta-cart';
+
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) setCartItems(parsed);
+      }
+    } catch {
+      // ignore malformed storage
+    }
+    setHydrated(true);
+  }, []);
+
+  useEffect(() => {
+    if (!hydrated) return;
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cartItems));
+    } catch {
+      // ignore storage write failures (e.g. private mode)
+    }
+  }, [cartItems, hydrated]);
 
   const addToCart = useCallback((item) => {
     setCartItems((prev) => {
