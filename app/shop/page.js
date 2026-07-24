@@ -8,19 +8,6 @@ import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const products = [
-  // TODO: テスト用商品。Stripe決済テスト用のため本番前に削除すること。
-  {
-    id: 'test-item',
-    nameJa: 'TEST ITEM',
-    nameEn: 'TEST ITEM',
-    nameZh: 'TEST ITEM',
-    category: 'Product',
-    status: 'available',
-    price: 100,
-    descJa: '【テスト用】Stripe決済動作確認用のダミー商品。本番前に削除します。',
-    descEn: '[Test] Dummy product for verifying Stripe checkout. To be removed before launch.',
-    descZh: '【测试用】用于验证 Stripe 结账流程的示例商品，上线前将删除。',
-  },
   {
     id: 'razor-seminar',
     nameJa: 'Razor Basics Seminar',
