@@ -47,6 +47,19 @@ function getStatusLabel(status) {
   return null;
 }
 
+/** 「… in Venue」を「…」/「in Venue」の2行に分割して会場名の孤立改行を防ぐ */
+function formatProductTitle(name) {
+  const match = String(name).match(/^(.*?)\s+(in\s+.+)$/i);
+  if (!match) return name;
+  return (
+    <>
+      {match[1]}
+      <br />
+      {match[2]}
+    </>
+  );
+}
+
 export default function Shop() {
   const [success, setSuccess] = useState(false);
   const [addedId, setAddedId] = useState(null);
@@ -149,12 +162,18 @@ export default function Shop() {
                     </div>
                   )}
                 </div>
-                <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:10, letterSpacing:'-0.01em'}}>{lang === 'zh' ? p.nameZh : lang === 'en' ? p.nameEn : p.nameJa}</h2>
-                {(p.dateJa || p.dateEn || p.dateZh) && (
-                  <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, letterSpacing:'0.08em', color:'#C9956A', marginBottom:14}}>
-                    {t3(p.dateJa, p.dateEn, p.dateZh)}
-                  </p>
-                )}
+                <div className="product-header" style={{minHeight:92, marginBottom:14, display:'flex', flexDirection:'column', justifyContent:'flex-start'}}>
+                  <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:22, fontWeight:300, lineHeight:1.2, margin:0, letterSpacing:'-0.01em'}}>
+                    {formatProductTitle(lang === 'zh' ? p.nameZh : lang === 'en' ? p.nameEn : p.nameJa)}
+                  </h2>
+                  {(p.dateJa || p.dateEn || p.dateZh) ? (
+                    <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, letterSpacing:'0.08em', color:'#C9956A', margin:'10px 0 0'}}>
+                      {t3(p.dateJa, p.dateEn, p.dateZh)}
+                    </p>
+                  ) : (
+                    <span aria-hidden="true" style={{display:'block', height:21, marginTop:10}} />
+                  )}
+                </div>
                 <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'rgba(237,235,229,0.72)', marginBottom:32}}>{lang === 'zh' ? p.descZh : lang === 'en' ? p.descEn : p.descJa}</p>
                 {p.options && (
                   <div className="seminar-options" style={{display:'flex', flexDirection:'column', gap:8, marginBottom:32}}>
@@ -168,6 +187,8 @@ export default function Shop() {
                           aria-pressed={selected}
                           style={{
                             width:'100%',
+                            minHeight:58,
+                            boxSizing:'border-box',
                             textAlign:'left',
                             cursor:'pointer',
                             padding:'14px 16px',
@@ -180,11 +201,11 @@ export default function Shop() {
                             gap:16,
                           }}
                         >
-                          <span style={{display:'flex', flexDirection:'column', gap:4, minWidth:0}}>
+                          <span style={{display:'flex', flexDirection:'column', gap:4, minWidth:0, flex:'1 1 auto'}}>
                             <span style={{fontFamily:'DM Sans, sans-serif', fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: selected ? '#C9956A' : 'rgba(237,235,229,0.6)', transition:'color .35s'}}>{opt.labelEn}</span>
-                            <span style={{fontFamily:"'Shippori Mincho', 'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:14, color:'#EDEBE5'}}>{t3(opt.nameJa, opt.nameEn, opt.nameZh)}</span>
+                            <span style={{fontFamily:"'Shippori Mincho', 'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:14, color:'#EDEBE5', whiteSpace:'nowrap'}}>{t3(opt.nameJa, opt.nameEn, opt.nameZh)}</span>
                           </span>
-                          <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:20, fontWeight:300, color:'#EDEBE5', flexShrink:0, whiteSpace:'nowrap'}}>¥{opt.price.toLocaleString()}</span>
+                          <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:20, fontWeight:300, color:'#EDEBE5', flexShrink:0, whiteSpace:'nowrap', lineHeight:1}}>¥{opt.price.toLocaleString()}</span>
                         </button>
                       );
                     })}
@@ -255,7 +276,10 @@ export default function Shop() {
             gap: 24px !important;
           }
           .product-name {
-            font-size: 20px !important;
+            font-size: 18px !important;
+          }
+          .product-header {
+            min-height: 84px !important;
           }
         }
       `}</style>
