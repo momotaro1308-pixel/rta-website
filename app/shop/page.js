@@ -10,17 +10,22 @@ import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 const products = [
   {
     id: 'razor-seminar',
-    nameJa: 'Razor Basics Seminar',
-    nameEn: 'Razor Basics Seminar',
-    nameZh: 'Razor Basics Seminar',
+    nameJa: 'Razor Basics Seminar in Nagoya',
+    nameEn: 'Razor Basics Seminar in Nagoya',
+    nameZh: 'Razor Basics Seminar in Nagoya',
+    // Stripe / カート用の識別名ベース（会場・日付を含め他日程と混同しない）
+    stripeBaseName: 'Razor Basics Seminar in Nagoya 2026.8.18',
+    dateJa: '開催日：2026年8月18日(火)',
+    dateEn: 'Date: Aug 18 (Tue), 2026',
+    dateZh: '日期：2026年8月18日(周二)',
     category: 'Seminar',
     status: 'available',
     descJa: 'レザーカットの理論と実践を深く学ぶ、RTAのセミナー。',
     descEn: 'RTA seminar exploring the theory and practice of razor cutting.',
     descZh: '深入研习剃刀切理论与实践的 RTA 研讨会。',
     options: [
-      { id: 'seminar-morning', price: 8000, labelEn: 'Morning', nameJa: '午前のみ', nameEn: 'Morning Only', nameZh: '仅上午' },
-      { id: 'seminar-fullday', price: 13000, labelEn: 'Full Day', nameJa: '午前＋午後', nameEn: 'Full Day', nameZh: '全天' },
+      { id: 'seminar-nagoya-20260818-morning', price: 8000, labelEn: 'Morning', nameJa: '午前のみ', nameEn: 'Morning Only', nameZh: '仅上午' },
+      { id: 'seminar-nagoya-20260818-fullday', price: 13000, labelEn: 'Full Day', nameJa: '午前＋午後', nameEn: 'Full Day', nameZh: '全天' },
     ],
   },
   {
@@ -71,8 +76,9 @@ export default function Shop() {
     let item;
     if (product.options) {
       const opt = getSelectedOption(product);
-      const optName = t3(opt.nameJa, opt.nameEn, opt.nameZh);
-      const name = lang === 'en' ? `${productName} (${optName})` : `${productName}（${optName}）`;
+      // Stripe 取引一覧用：会場・日付・オプションを必ず含める（他日程と混ざらない識別名）
+      const base = product.stripeBaseName || productName;
+      const name = `${base}（${opt.nameJa}）`;
       item = { id: opt.id, name, price: opt.price };
     } else {
       item = { id: product.id, name: productName, price: product.price };
@@ -143,7 +149,12 @@ export default function Shop() {
                     </div>
                   )}
                 </div>
-                <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:14, letterSpacing:'-0.01em'}}>{lang === 'zh' ? p.nameZh : lang === 'en' ? p.nameEn : p.nameJa}</h2>
+                <h2 className="product-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:24, fontWeight:300, lineHeight:1.2, marginBottom:10, letterSpacing:'-0.01em'}}>{lang === 'zh' ? p.nameZh : lang === 'en' ? p.nameEn : p.nameJa}</h2>
+                {(p.dateJa || p.dateEn || p.dateZh) && (
+                  <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, letterSpacing:'0.08em', color:'#C9956A', marginBottom:14}}>
+                    {t3(p.dateJa, p.dateEn, p.dateZh)}
+                  </p>
+                )}
                 <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'rgba(237,235,229,0.72)', marginBottom:32}}>{lang === 'zh' ? p.descZh : lang === 'en' ? p.descEn : p.descJa}</p>
                 {p.options && (
                   <div className="seminar-options" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:32}}>
