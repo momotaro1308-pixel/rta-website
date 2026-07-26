@@ -157,7 +157,7 @@ export default function Shop() {
                 )}
                 <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, lineHeight:1.95, color:'rgba(237,235,229,0.72)', marginBottom:32}}>{lang === 'zh' ? p.descZh : lang === 'en' ? p.descEn : p.descJa}</p>
                 {p.options && (
-                  <div className="seminar-options" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:32}}>
+                  <div className="seminar-options" style={{display:'flex', flexDirection:'column', gap:8, marginBottom:32}}>
                     {p.options.map((opt) => {
                       const selected = selectedOption && selectedOption.id === opt.id;
                       return (
@@ -167,20 +167,24 @@ export default function Shop() {
                           onClick={() => setSelectedOptions((prev) => ({ ...prev, [p.id]: opt.id }))}
                           aria-pressed={selected}
                           style={{
+                            width:'100%',
                             textAlign:'left',
                             cursor:'pointer',
-                            padding:'16px 16px',
-                            border: selected ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)',
+                            padding:'14px 16px',
+                            border: selected ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.18)',
                             background: selected ? 'rgba(201,149,106,0.09)' : 'transparent',
                             transition:'border-color .35s, background-color .35s, color .35s',
                             display:'flex',
-                            flexDirection:'column',
-                            gap:8,
+                            alignItems:'center',
+                            justifyContent:'space-between',
+                            gap:16,
                           }}
                         >
-                          <span style={{fontFamily:'DM Sans, sans-serif', fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: selected ? '#C9956A' : 'rgba(237,235,229,0.72)', transition:'color .35s'}}>{opt.labelEn}</span>
-                          <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#EDEBE5'}}>{t3(opt.nameJa, opt.nameEn, opt.nameZh)}</span>
-                          <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:18, fontWeight:300, color:'#EDEBE5'}}>¥{opt.price.toLocaleString()}</span>
+                          <span style={{display:'flex', flexDirection:'column', gap:4, minWidth:0}}>
+                            <span style={{fontFamily:'DM Sans, sans-serif', fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color: selected ? '#C9956A' : 'rgba(237,235,229,0.6)', transition:'color .35s'}}>{opt.labelEn}</span>
+                            <span style={{fontFamily:"'Shippori Mincho', 'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:14, color:'#EDEBE5'}}>{t3(opt.nameJa, opt.nameEn, opt.nameZh)}</span>
+                          </span>
+                          <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:20, fontWeight:300, color:'#EDEBE5', flexShrink:0, whiteSpace:'nowrap'}}>¥{opt.price.toLocaleString()}</span>
                         </button>
                       );
                     })}
@@ -252,9 +256,6 @@ export default function Shop() {
           }
           .product-name {
             font-size: 20px !important;
-          }
-          .seminar-options {
-            grid-template-columns: 1fr !important;
           }
         }
       `}</style>
