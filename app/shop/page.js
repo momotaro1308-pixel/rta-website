@@ -152,19 +152,23 @@ export default function Shop() {
                 key={p.id}
                 className={`product-card about-fade-up${unavailable ? ' is-unavailable' : ''}`}
               >
-                {/* Row 1: media — fixed square, shared height via subgrid */}
-                <div className="product-media">
-                  <span className="product-media-idx">0{idx + 1}</span>
-                  <span className="product-media-cat" style={{color: p.category === 'Seminar' ? '#C9956A' : 'rgba(237,235,229,0.72)'}}>{p.category}</span>
-                  <span className="product-media-label">
-                    {p.category === 'Seminar' ? 'Ticket' : 'Product Image'}
-                  </span>
-                  {unavailable && (
-                    <div className="product-media-status">
-                      <span>{statusLabel}</span>
-                      <span className="product-media-status-dot" />
+                {/* 画像枠：padding-top 100% で幅基準の正方形を強制（左右同一サイズ） */}
+                <div className="product-media-frame">
+                  <div className="product-media-square">
+                    <div className="product-media">
+                      <span className="product-media-idx">0{idx + 1}</span>
+                      <span className="product-media-cat" style={{color: p.category === 'Seminar' ? '#C9956A' : 'rgba(237,235,229,0.72)'}}>{p.category}</span>
+                      <span className="product-media-label">
+                        {p.category === 'Seminar' ? 'Ticket' : 'Product Image'}
+                      </span>
+                      {unavailable && (
+                        <div className="product-media-status">
+                          <span>{statusLabel}</span>
+                          <span className="product-media-status-dot" />
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 {/* Row 2: title + date */}
@@ -248,30 +252,44 @@ export default function Shop() {
       <style>{`
         .products-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          /* minmax(0,1fr): iPhoneで中身のmin-contentが列幅を押し広げるのを防ぐ */
+          grid-template-columns: repeat(2, minmax(0, 1fr));
           column-gap: 60px;
           align-items: start;
         }
-        /* Subgrid: media / header / desc / lower を左右で同じ行高さに揃える */
         .product-card {
-          display: grid;
-          grid-template-rows: subgrid;
-          grid-row: span 4;
-          row-gap: 0;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          min-width: 0;
+          max-width: 100%;
           transition: opacity 0.3s;
         }
         .product-card.is-unavailable {
           opacity: 0.55;
         }
-        .product-media {
+        /* 列幅が揃えば正方形も揃う。iOSは aspect-ratio を優先 */
+        .product-media-frame {
+          width: 100%;
+          min-width: 0;
+          margin-bottom: 28px;
+          flex: 0 0 auto;
+        }
+        .product-media-square {
           position: relative;
           width: 100%;
           aspect-ratio: 1 / 1;
           height: auto;
+        }
+        .product-media {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
           background: #354656;
           border: 1px solid rgba(237,235,229,0.15);
           overflow: hidden;
-          margin-bottom: 28px;
+          box-sizing: border-box;
         }
         .product-media-idx {
           position: absolute;
@@ -328,6 +346,7 @@ export default function Shop() {
           flex-direction: column;
           justify-content: flex-start;
           min-height: 5.6em;
+          min-width: 0;
           margin-bottom: 14px;
         }
         .product-name {
@@ -337,6 +356,8 @@ export default function Shop() {
           line-height: 1.2;
           margin: 0;
           letter-spacing: -0.01em;
+          min-width: 0;
+          overflow-wrap: break-word;
         }
         .product-date {
           font-family: 'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif;
@@ -371,6 +392,8 @@ export default function Shop() {
         }
         .seminar-option {
           width: 100%;
+          max-width: 100%;
+          min-width: 0;
           min-height: 58px;
           box-sizing: border-box;
           text-align: left;
@@ -413,6 +436,9 @@ export default function Shop() {
           font-size: 14px;
           color: #EDEBE5;
           white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 100%;
         }
         .seminar-option-price {
           font-family: Cormorant Garamond, serif;
@@ -460,20 +486,6 @@ export default function Shop() {
         .product-add-btn.is-added {
           color: #C9956A;
         }
-        /* Subgrid 非対応ブラウザ向けフォールバック */
-        @supports not (grid-template-rows: subgrid) {
-          .product-card {
-            display: flex;
-            flex-direction: column;
-            grid-row: auto;
-          }
-          .product-media {
-            flex: 0 0 auto;
-          }
-          .product-header {
-            min-height: 5.6em;
-          }
-        }
         @media (max-width: 768px) {
           .shop-hero-content {
             padding: 140px 24px 40px !important;
@@ -485,8 +497,21 @@ export default function Shop() {
             padding: 72px 24px !important;
           }
           .products-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
             column-gap: 24px !important;
+          }
+          .product-card {
+            min-width: 0 !important;
+          }
+          .seminar-option {
+            padding: 12px 10px !important;
+            gap: 8px !important;
+          }
+          .seminar-option-name {
+            font-size: 12px !important;
+          }
+          .seminar-option-price {
+            font-size: 16px !important;
           }
           .product-name {
             font-size: 18px !important;
@@ -494,7 +519,7 @@ export default function Shop() {
           .product-header {
             min-height: 5.2em !important;
           }
-          .product-media {
+          .product-media-frame {
             margin-bottom: 20px !important;
           }
         }
