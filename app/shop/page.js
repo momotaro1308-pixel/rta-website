@@ -20,6 +20,7 @@ const products = [
     dateZh: '日期：2026年8月18日(周二)',
     category: 'Seminar',
     status: 'available',
+    image: '/shop-seminar-nagoya.jpg',
     descJa: 'レザーカットの理論と実践を深く学ぶ、RTAのセミナー。',
     descEn: 'RTA seminar exploring the theory and practice of razor cutting.',
     descZh: '深入研习剃刀切理论与实践的 RTA 研讨会。',
@@ -155,12 +156,21 @@ export default function Shop() {
                 {/* 画像枠：padding-top 100% で幅基準の正方形を強制（左右同一サイズ） */}
                 <div className="product-media-frame">
                   <div className="product-media-square">
-                    <div className="product-media">
+                    <div className={`product-media${p.image ? ' has-image' : ''}`}>
+                      {p.image ? (
+                        <img
+                          src={p.image}
+                          alt={lang === 'zh' ? p.nameZh : lang === 'en' ? p.nameEn : p.nameJa}
+                          className="product-media-img"
+                        />
+                      ) : null}
                       <span className="product-media-idx">0{idx + 1}</span>
                       <span className="product-media-cat" style={{color: p.category === 'Seminar' ? '#C9956A' : 'rgba(237,235,229,0.72)'}}>{p.category}</span>
-                      <span className="product-media-label">
-                        {p.category === 'Seminar' ? 'Ticket' : 'Product Image'}
-                      </span>
+                      {!p.image && (
+                        <span className="product-media-label">
+                          {p.category === 'Seminar' ? 'Ticket' : 'Product Image'}
+                        </span>
+                      )}
                       {unavailable && (
                         <div className="product-media-status">
                           <span>{statusLabel}</span>
@@ -291,6 +301,21 @@ export default function Shop() {
           overflow: hidden;
           box-sizing: border-box;
         }
+        .product-media-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
+        }
+        .product-media.has-image .product-media-idx,
+        .product-media.has-image .product-media-cat {
+          color: #FFFFFF;
+          text-shadow: 0 1px 3px rgba(0,0,0,0.55);
+          z-index: 2;
+        }
         .product-media-idx {
           position: absolute;
           top: 16px;
@@ -299,6 +324,7 @@ export default function Shop() {
           letter-spacing: 0.3em;
           text-transform: uppercase;
           color: rgba(237,235,229,0.72);
+          z-index: 2;
         }
         .product-media-cat {
           position: absolute;
@@ -307,6 +333,7 @@ export default function Shop() {
           font-size: 8px;
           letter-spacing: 0.3em;
           text-transform: uppercase;
+          z-index: 2;
         }
         .product-media-label {
           position: absolute;
