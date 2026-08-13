@@ -12,29 +12,27 @@ export default function SubscriptionPhilosophy() {
   return (
     <section className="section-pad" style={{padding:'80px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
       <div className="about-fade-up" style={{maxWidth:640}}>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'#C9956A', marginBottom:32}}>
+        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'#C9956A', marginBottom:24}}>
           {lang === 'zh' ? '何为 RTA Subscription' : lang === 'en' ? 'What is RTA Subscription' : 'RTA Subscription とは'}
         </p>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:15, lineHeight:2.2, color:'#EDEBE5', marginBottom:32, fontWeight:300}}>
-          {lang === 'zh' ? (
-            <>RTA Subscription，<br />并非只是一间线上沙龙。</>
-          ) : lang === 'en' ? (
-            <>RTA Subscription is not<br />simply an online salon.</>
-          ) : (
-            <>RTA Subscriptionは、<br />単なるオンラインサロンではない。</>
-          )}
+        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:15, lineHeight:2.05, color:'#EDEBE5', marginBottom:28, fontWeight:300, textWrap:'balance'}}>
+          {lang === 'zh'
+            ? 'RTA Subscription，并非只是一间线上沙龙。'
+            : lang === 'en'
+            ? 'RTA Subscription is not simply an online salon.'
+            : 'RTA Subscriptionは、単なるオンラインサロンではない。'}
         </p>
-        <p style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(18px,2vw,24px)', fontStyle:'italic', fontWeight:300, color:'#EDEBE5', marginBottom:48, letterSpacing:'-0.01em', paddingLeft:24, borderLeft:'1px solid rgba(237,235,229,0.15)'}}>
+        <p style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(18px,2vw,24px)', fontStyle:'italic', fontWeight:300, color:'#EDEBE5', marginBottom:36, letterSpacing:'-0.01em', paddingLeft:24, borderLeft:'1px solid rgba(237,235,229,0.15)'}}>
           {lang === 'zh' ? '"保存感觉的 Archive"' : lang === 'en' ? '"An Archive that Preserves Sensation"' : '"感覚を保存するArchive"'}
         </p>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.4, color:'rgba(237,235,229,0.72)', marginBottom:8}}>
+        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.15, color:'rgba(237,235,229,0.72)', marginBottom:6}}>
           {lang === 'zh'
             ? '许多美容教育教授的是裁剪的方法、步骤与造型。'
             : lang === 'en'
             ? 'Much beauty education teaches cutting methods, procedures, and styles.'
             : '多くの美容教育は、切り方・手順・スタイルを教える。'}
         </p>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.4, color:'rgba(237,235,229,0.72)', marginBottom:48}}>
+        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.15, color:'rgba(237,235,229,0.72)', marginBottom:40}}>
           {lang === 'zh' ? (
             <>而 RTA 想要保存的，是<strong style={{color:'#EDEBE5', fontWeight:300}}>"观察头发的方式"</strong>。</>
           ) : lang === 'en' ? (
@@ -46,7 +44,7 @@ export default function SubscriptionPhilosophy() {
         <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, letterSpacing:'0.28em', textTransform:'uppercase', color:'#C9956A', marginBottom:24}}>
           RTA Subscription Philosophy
         </p>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.2, color:'#EDEBE5', marginBottom:40, fontWeight:300}}>
+        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, lineHeight:2.05, color:'#EDEBE5', marginBottom:28, fontWeight:300, textWrap:'balance'}}>
           {lang === 'zh' ? (
             <>我们不让技术止步于<strong style={{fontWeight:300}}>"感觉"</strong>。</>
           ) : lang === 'en' ? (
@@ -55,10 +53,10 @@ export default function SubscriptionPhilosophy() {
             <>技術を<strong style={{fontWeight:300}}>"感覚"</strong>で終わらせない。</>
           )}
         </p>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.4, color:'rgba(237,235,229,0.72)', marginBottom:16}}>
+        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.15, color:'rgba(237,235,229,0.72)', marginBottom:10}}>
           {lang === 'zh' ? '在 RTA，' : lang === 'en' ? 'At RTA,' : 'RTAでは、'}
         </p>
-        <div style={{display:'flex', flexWrap:'wrap', gap:'8px 24px', marginBottom:32}}>
+        <div style={{display:'flex', flexWrap:'wrap', gap:'8px 24px', marginBottom:18}}>
           {(lang === 'zh' ? philosophyItemsZh : lang === 'en' ? philosophyItemsEn : philosophyItemsJa).map((item) => (
             <span key={item} style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'#EDEBE5', letterSpacing:'0.12em', display:'flex', alignItems:'center', gap:8}}>
               <span style={{width:4, height:4, borderRadius:'50%', background:'#C9956A', display:'inline-block'}} />
@@ -66,7 +64,7 @@ export default function SubscriptionPhilosophy() {
             </span>
           ))}
         </div>
-        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.4, color:'rgba(237,235,229,0.72)'}}>
+        <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:2.15, color:'rgba(237,235,229,0.72)'}}>
           {lang === 'zh' ? '我们将以上这些理论化，并落实为可复现的方法。' : lang === 'en' ? 'we theorize these and translate them into reproducibility.' : 'を理論化し、再現性へ落とし込む。'}
         </p>
       </div>
