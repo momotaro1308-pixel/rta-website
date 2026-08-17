@@ -179,8 +179,8 @@ export default function MembersPage() {
       <SubscriptionPhilosophy />
 
       {/* 2. SUBSCRIPTION PURPOSE */}
-      <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
-        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, maxWidth:720}}>
+      <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)', textAlign:'center'}}>
+        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, maxWidth:720, margin:'0 auto'}}>
           {lang === 'zh' ? (
             <>
               不是&ldquo;观看视频&rdquo;。<br />
