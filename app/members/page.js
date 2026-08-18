@@ -60,11 +60,6 @@ const steps = [
   },
 ];
 
-const archiveTags = [
-  'ROOT', 'FLOW', 'DRY', 'SOFTNESS', 'TENSION',
-  'BOB', 'LAYER', 'WOLF', 'PERM', 'VISUAL',
-];
-
 const plans = [
   {
     number: 'PLAN 01',
@@ -178,29 +173,7 @@ export default function MembersPage() {
 
       <SubscriptionPhilosophy />
 
-      {/* 2. SUBSCRIPTION PURPOSE */}
-      <section className="section-pad" style={{padding:'100px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)', textAlign:'center'}}>
-        <p className="about-fade-up" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, maxWidth:720, margin:'0 auto'}}>
-          {lang === 'zh' ? (
-            <>
-              不是&ldquo;观看视频&rdquo;。<br />
-              <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;而是积累理解。&rdquo;</em>
-            </>
-          ) : lang === 'en' ? (
-            <>
-              Not &ldquo;watching videos.&rdquo;<br />
-              <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;Accumulating understanding.&rdquo;</em>
-            </>
-          ) : (
-            <>
-              「動画を見る」ではない。<br />
-              <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;理解を蓄積する&rdquo;こと。</em>
-            </>
-          )}
-        </p>
-      </section>
-
-      {/* 3. STEP 1–5 */}
+      {/* 2. STEP 1–5 */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Learning Path — STEP 1–5</SectionLabel>
         {steps.map((s) => (
@@ -232,55 +205,7 @@ export default function MembersPage() {
         ))}
       </section>
 
-      {/* 4. ARCHIVE SYSTEM */}
-      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
-        <SectionLabel>Archive System</SectionLabel>
-        <div className="members-archive-grid about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80, alignItems:'start'}}>
-          <div>
-            <p style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:'clamp(18px,2.2vw,26px)', lineHeight:1.9, color:'#EDEBE5', fontWeight:300, marginBottom:32}}>
-              {lang === 'zh' ? (
-                <>
-                  并非单纯的视频列表。<br />
-                  <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;可检索的教育。&rdquo;</em>
-                </>
-              ) : lang === 'en' ? (
-                <>
-                  Not simply a video library.<br />
-                  <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;Searchable education.&rdquo;</em>
-                </>
-              ) : (
-                <>
-                  単なる動画一覧ではない。<br />
-                  <em style={{fontStyle:'italic', color:'#C9956A'}}>&ldquo;検索できる教育&rdquo;</em>
-                </>
-              )}
-            </p>
-          </div>
-          <div style={{border:'1px solid rgba(237,235,229,0.15)', padding:'36px 32px', background:'#354656'}}>
-            <div style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'rgba(237,235,229,0.72)', marginBottom:24}}>— Tags</div>
-            <div style={{display:'flex', flexWrap:'wrap', gap:10}}>
-              {archiveTags.map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    fontSize:9,
-                    letterSpacing:'0.22em',
-                    textTransform:'uppercase',
-                    color:'#EDEBE5',
-                    border:'1px solid rgba(237,235,229,0.15)',
-                    padding:'10px 14px',
-                    background:'#2E3A4A',
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 5. SUBSCRIPTION PLAN */}
+      {/* 3. SUBSCRIPTION PLAN */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Learning Plans</SectionLabel>
         <div className="members-plans-intro about-fade-up" style={{maxWidth:720, marginBottom:'clamp(48px, 6vw, 80px)'}}>
@@ -461,7 +386,7 @@ export default function MembersPage() {
         </div>
       </section>
 
-      {/* 5.5 LEARNING JOURNEY */}
+      {/* 4. LEARNING JOURNEY */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Learning Journey</SectionLabel>
         <div className="members-journey about-fade-up" style={{display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center'}}>
@@ -496,7 +421,7 @@ export default function MembersPage() {
         </div>
       </section>
 
-      {/* 6. OFFLINE CONNECTION */}
+      {/* 5. OFFLINE CONNECTION */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Offline Connection</SectionLabel>
         <div className="members-offline about-fade-up" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:80}}>
@@ -519,7 +444,7 @@ export default function MembersPage() {
         </div>
       </section>
 
-      {/* 7. RTA GOAL */}
+      {/* 6. RTA GOAL */}
       <section className="section-pad members-goal" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)', textAlign:'center'}}>
         <p className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:32}}>
           RTA Goal
@@ -557,10 +482,6 @@ export default function MembersPage() {
           }
           .members-step-row > span:last-child {
             white-space: normal !important;
-          }
-          .members-archive-grid {
-            grid-template-columns: 1fr !important;
-            gap: 40px !important;
           }
           .members-plans-grid {
             grid-template-columns: 1fr !important;
