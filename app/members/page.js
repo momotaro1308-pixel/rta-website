@@ -124,9 +124,9 @@ const journeySteps = [
 ];
 
 const journeyPlans = [
-  { name: 'ARCHIVE', ja: 'いつでも学べるライブラリー', en: 'A library you can learn from anytime', zh: '随时可学的资料库', star: false },
-  { name: 'ACADEMY', ja: 'Live・添削・実践', en: 'Live, feedback, practice', zh: '直播 · 点评 · 实践', star: true },
-  { name: 'CERTIFIED MEMBER', ja: '認定・Workshop', en: 'Certification & workshops', zh: '认定 · Workshop', star: false },
+  { name: 'ARCHIVE', ja: 'いつでも学べるライブラリー', en: 'A library you can learn from anytime', zh: '随时可学的资料库' },
+  { name: 'ACADEMY', ja: 'Live・添削・実践', en: 'Live, feedback, practice', zh: '直播 · 点评 · 实践' },
+  { name: 'CERTIFIED MEMBER', ja: '認定・Workshop', en: 'Certification & workshops', zh: '认定 · Workshop' },
 ];
 
 function SectionLabel({ children }) {
@@ -144,6 +144,7 @@ export default function MembersPage() {
   const t = (ja, en, zh) => (lang === 'zh' ? zh : lang === 'en' ? en : ja);
 
   const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedJourneyPlan, setSelectedJourneyPlan] = useState(null);
   const [openSections, setOpenSections] = useState({});
   const toggleSection = (key) =>
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
@@ -405,19 +406,47 @@ export default function MembersPage() {
         </div>
 
         <div className="members-journey-plans about-fade-up" style={{marginTop:'clamp(48px, 6vw, 80px)', display:'flex', alignItems:'stretch', gap:16}}>
-          {journeyPlans.map((p, i) => (
-            <div key={p.name} style={{display:'contents'}}>
-              <div style={{flex:1, border: p.star ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)', background: p.star ? 'rgba(201,149,106,0.09)' : 'transparent', padding:'28px 24px', textAlign:'center', display:'flex', flexDirection:'column', justifyContent:'center', gap:10}}>
-                <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:20, fontWeight:300, letterSpacing:'-0.01em', color:'#EDEBE5'}}>
-                  {p.star && <span style={{color:'#C9956A'}}>★ </span>}{p.name}
+          {journeyPlans.map((p, i) => {
+            const isSelected = selectedJourneyPlan === p.name;
+            return (
+              <div key={p.name} style={{display:'contents'}}>
+                <div
+                  role="button"
+                  tabIndex={0}
+                  aria-pressed={isSelected}
+                  className={`members-journey-plan${isSelected ? ' is-selected' : ''}`}
+                  onClick={() => setSelectedJourneyPlan(p.name)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedJourneyPlan(p.name);
+                    }
+                  }}
+                  style={{
+                    flex:1,
+                    border: isSelected ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)',
+                    background: isSelected ? 'rgba(201,149,106,0.09)' : 'transparent',
+                    padding:'28px 24px',
+                    textAlign:'center',
+                    display:'flex',
+                    flexDirection:'column',
+                    justifyContent:'center',
+                    gap:10,
+                    cursor:'pointer',
+                    transition:'border-color 0.4s ease, background-color 0.4s ease',
+                  }}
+                >
+                  <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:20, fontWeight:300, letterSpacing:'-0.01em', color:'#EDEBE5'}}>
+                    {p.name}
+                  </div>
+                  <div style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:1.8, color:'rgba(237,235,229,0.72)'}}>{t(p.ja, p.en, p.zh)}</div>
                 </div>
-                <div style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:1.8, color:'rgba(237,235,229,0.72)'}}>{t(p.ja, p.en, p.zh)}</div>
+                {i < journeyPlans.length - 1 && (
+                  <span aria-hidden="true" className="journey-arrow" style={{alignSelf:'center', color:'#C9956A', fontSize:20, lineHeight:1, flexShrink:0}}>→</span>
+                )}
               </div>
-              {i < journeyPlans.length - 1 && (
-                <span aria-hidden="true" className="journey-arrow" style={{alignSelf:'center', color:'#C9956A', fontSize:20, lineHeight:1, flexShrink:0}}>→</span>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -465,7 +494,8 @@ export default function MembersPage() {
 
       <style>{`
         @media (hover: hover) {
-          .members-plan-card:hover {
+          .members-plan-card:hover,
+          .members-journey-plan:hover {
             border-color: #C9956A !important;
             background: rgba(201,149,106,0.09) !important;
           }
