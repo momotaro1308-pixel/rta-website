@@ -117,21 +117,22 @@ const plans = [
   },
 ];
 
+// pair で上段のステップと下段のボックスを対応させ、どちらからでも同じペアを光らせる
 const journeySteps = [
-  { no: 'STEP 01', label: 'Learn', ja: '理論を理解する', en: 'Understand the theory', zh: '理解理论' },
-  { no: 'STEP 02', label: 'Practice', ja: '技術を定着させる', en: 'Make the skill stick', zh: '巩固技术' },
-  { no: 'STEP 03', label: 'Certified', ja: '技術を証明する', en: 'Prove your skill', zh: '证明技术' },
+  { pair: 'learn', no: 'STEP 01', label: 'Learn', ja: '理論を理解する', en: 'Understand the theory', zh: '理解理论' },
+  { pair: 'practice', no: 'STEP 02', label: 'Practice', ja: '技術を定着させる', en: 'Make the skill stick', zh: '巩固技术' },
+  { pair: 'certified', no: 'STEP 03', label: 'Certified', ja: '技術を証明する', en: 'Prove your skill', zh: '证明技术' },
 ];
 
 const journeyPlans = [
-  { name: 'ARCHIVE', ja: 'いつでも学べるライブラリー', en: 'A library you can learn from anytime', zh: '随时可学的资料库' },
-  { name: 'ACADEMY', ja: 'Live・添削・実践', en: 'Live, feedback, practice', zh: '直播 · 点评 · 实践' },
-  { name: 'CERTIFIED MEMBER', ja: '認定・Workshop', en: 'Certification & workshops', zh: '认定 · Workshop' },
+  { pair: 'learn', name: 'ARCHIVE', ja: 'いつでも学べるライブラリー', en: 'A library you can learn from anytime', zh: '随时可学的资料库' },
+  { pair: 'practice', name: 'ACADEMY', ja: 'Live・添削・実践', en: 'Live, feedback, practice', zh: '直播 · 点评 · 实践' },
+  { pair: 'certified', name: 'CERTIFIED MEMBER', ja: '認定・Workshop', en: 'Certification & workshops', zh: '认定 · Workshop' },
 ];
 
-function SectionLabel({ children }) {
+function SectionLabel({ children, marginBottom = 64 }) {
   return (
-    <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom:64, display:'flex', alignItems:'center', gap:16}}>
+    <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom, display:'flex', alignItems:'center', gap:16}}>
       <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}} />
       {children}
     </div>
@@ -144,10 +145,35 @@ export default function MembersPage() {
   const t = (ja, en, zh) => (lang === 'zh' ? zh : lang === 'en' ? en : ja);
 
   const [selectedPlan, setSelectedPlan] = useState(null);
-  const [selectedJourneyPlan, setSelectedJourneyPlan] = useState(null);
   const [openSections, setOpenSections] = useState({});
   const toggleSection = (key) =>
     setOpenSections((prev) => ({ ...prev, [key]: !prev[key] }));
+
+  const [selectedJourneyPair, setSelectedJourneyPair] = useState(null);
+  const [hoveredJourneyPair, setHoveredJourneyPair] = useState(null);
+  const activeJourneyPair = hoveredJourneyPair ?? selectedJourneyPair;
+  // タップ／クリックは選択、マウスのホバーは一時的な表示。どちらも上下ペアで連動する
+  const journeyPairProps = (pair) => ({
+    role: 'button',
+    tabIndex: 0,
+    'aria-pressed': selectedJourneyPair === pair,
+    onClick: () => setSelectedJourneyPair(pair),
+    onPointerUp: () => setSelectedJourneyPair(pair),
+    onPointerEnter: (e) => {
+      if (e.pointerType === 'mouse') setHoveredJourneyPair(pair);
+    },
+    onPointerLeave: (e) => {
+      if (e.pointerType === 'mouse') setHoveredJourneyPair(null);
+    },
+    onFocus: () => setHoveredJourneyPair(pair),
+    onBlur: () => setHoveredJourneyPair(null),
+    onKeyDown: (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setSelectedJourneyPair(pair);
+      }
+    },
+  });
 
   return (
     <main ref={mainRef} style={{background:'#2E3A4A', minHeight:'100vh', fontFamily:'DM Sans, sans-serif', fontWeight:200, color:'#EDEBE5'}}>
@@ -228,6 +254,11 @@ export default function MembersPage() {
             const recommendedKey = `${plan.name}:recommended`;
             const contentsOpen = !!openSections[contentsKey];
             const recommendedOpen = !!openSections[recommendedKey];
+            // アコーディオンとCTAは自前の操作を持つので、そこ由来の入力では選択を変えない
+            const selectPlan = (e) => {
+              if (e.target.closest('.plan-accordion-trigger, .members-plan-cta')) return;
+              setSelectedPlan(plan.name);
+            };
             return (
               <article
                 key={plan.name}
@@ -235,7 +266,8 @@ export default function MembersPage() {
                 tabIndex={0}
                 aria-pressed={isSelected}
                 className={`about-fade-up members-plan-card${isSelected ? ' is-selected' : ''}`}
-                onClick={() => setSelectedPlan(plan.name)}
+                onClick={selectPlan}
+                onPointerUp={selectPlan}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -388,50 +420,44 @@ export default function MembersPage() {
       </section>
 
       {/* 4. LEARNING JOURNEY */}
-      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
-        <SectionLabel>Learning Journey</SectionLabel>
+      <section className="section-pad members-journey-section" style={{padding:'clamp(88px, 8vw, 104px) 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
+        <SectionLabel marginBottom={40}>Learning Journey</SectionLabel>
         <div className="members-journey about-fade-up" style={{display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center'}}>
-          {journeySteps.map((s, i) => (
-            <div key={s.no} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-              <div>
-                <div style={{fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color:'#C9956A', marginBottom:10}}>{s.no}</div>
-                <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(24px,3vw,36px)', fontWeight:300, letterSpacing:'-0.01em', marginBottom:8}}>{s.label}</div>
-                <div style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'rgba(237,235,229,0.72)'}}>{t(s.ja, s.en, s.zh)}</div>
+          {journeySteps.map((s, i) => {
+            const isActive = activeJourneyPair === s.pair;
+            return (
+              <div key={s.no} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                <div className="members-journey-step" {...journeyPairProps(s.pair)} style={{cursor:'pointer'}}>
+                  <div style={{fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color: isActive ? '#C9956A' : '#EDEBE5', marginBottom:6, transition:'color 0.4s ease'}}>{s.no}</div>
+                  <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.2vw,28px)', fontWeight:300, letterSpacing:'-0.01em', marginBottom:5, color: isActive ? '#C9956A' : '#EDEBE5', transition:'color 0.4s ease'}}>{s.label}</div>
+                  <div style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color: isActive ? '#C9956A' : 'rgba(237,235,229,0.72)', transition:'color 0.4s ease'}}>{t(s.ja, s.en, s.zh)}</div>
+                </div>
+                {i < journeySteps.length - 1 && (
+                  <span aria-hidden="true" style={{color:'#C9956A', fontSize:18, lineHeight:1, margin:'12px 0'}}>↓</span>
+                )}
               </div>
-              {i < journeySteps.length - 1 && (
-                <span aria-hidden="true" style={{color:'#C9956A', fontSize:22, lineHeight:1, margin:'22px 0'}}>↓</span>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        <div className="members-journey-plans about-fade-up" style={{marginTop:'clamp(48px, 6vw, 80px)', display:'flex', alignItems:'stretch', gap:16}}>
+        <div className="members-journey-plans about-fade-up" style={{marginTop:'clamp(36px, 4.5vw, 56px)', display:'flex', alignItems:'stretch', gap:16}}>
           {journeyPlans.map((p, i) => {
-            const isSelected = selectedJourneyPlan === p.name;
+            const isActive = activeJourneyPair === p.pair;
             return (
               <div key={p.name} style={{display:'contents'}}>
                 <div
-                  role="button"
-                  tabIndex={0}
-                  aria-pressed={isSelected}
-                  className={`members-journey-plan${isSelected ? ' is-selected' : ''}`}
-                  onClick={() => setSelectedJourneyPlan(p.name)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      setSelectedJourneyPlan(p.name);
-                    }
-                  }}
+                  className={`members-journey-plan${isActive ? ' is-selected' : ''}`}
+                  {...journeyPairProps(p.pair)}
                   style={{
                     flex:1,
-                    border: isSelected ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)',
-                    background: isSelected ? 'rgba(201,149,106,0.09)' : 'transparent',
-                    padding:'28px 24px',
+                    border: isActive ? '1px solid #C9956A' : '1px solid rgba(237,235,229,0.15)',
+                    background: isActive ? 'rgba(201,149,106,0.09)' : 'transparent',
+                    padding:'24px 20px',
                     textAlign:'center',
                     display:'flex',
                     flexDirection:'column',
                     justifyContent:'center',
-                    gap:10,
+                    gap:8,
                     cursor:'pointer',
                     transition:'border-color 0.4s ease, background-color 0.4s ease',
                   }}
@@ -494,8 +520,7 @@ export default function MembersPage() {
 
       <style>{`
         @media (hover: hover) {
-          .members-plan-card:hover,
-          .members-journey-plan:hover {
+          .members-plan-card:hover {
             border-color: #C9956A !important;
             background: rgba(201,149,106,0.09) !important;
           }
