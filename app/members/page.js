@@ -254,11 +254,8 @@ export default function MembersPage() {
             const recommendedKey = `${plan.name}:recommended`;
             const contentsOpen = !!openSections[contentsKey];
             const recommendedOpen = !!openSections[recommendedKey];
-            // アコーディオンとCTAは自前の操作を持つので、そこ由来の入力では選択を変えない
-            const selectPlan = (e) => {
-              if (e.target.closest('.plan-accordion-trigger, .members-plan-cta')) return;
-              setSelectedPlan(plan.name);
-            };
+            // カード内のどこを触っても選択される。アコーディオンやCTAの操作とは併発してよい
+            const selectPlan = () => setSelectedPlan(plan.name);
             return (
               <article
                 key={plan.name}
@@ -299,10 +296,7 @@ export default function MembersPage() {
                     type="button"
                     className="plan-accordion-trigger"
                     aria-expanded={contentsOpen}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleSection(contentsKey);
-                    }}
+                    onClick={() => toggleSection(contentsKey)}
                     style={{
                       width:'100%',
                       display:'flex',
@@ -347,10 +341,7 @@ export default function MembersPage() {
                     type="button"
                     className="plan-accordion-trigger"
                     aria-expanded={recommendedOpen}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleSection(recommendedKey);
-                    }}
+                    onClick={() => toggleSection(recommendedKey)}
                     style={{
                       width:'100%',
                       display:'flex',
@@ -396,7 +387,6 @@ export default function MembersPage() {
                 <a
                   href="/contact"
                   className={`members-plan-cta${isSelected ? ' is-selected' : ''}`}
-                  onClick={(e) => e.stopPropagation()}
                   style={{
                     display:'inline-block',
                     fontSize:9,
