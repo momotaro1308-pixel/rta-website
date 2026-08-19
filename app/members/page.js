@@ -130,9 +130,9 @@ const journeyPlans = [
   { pair: 'certified', name: 'CERTIFIED MEMBER', ja: '認定・Workshop', en: 'Certification & workshops', zh: '认定 · Workshop' },
 ];
 
-function SectionLabel({ children, marginBottom = 64 }) {
+function SectionLabel({ children, marginBottom = 64, className = '' }) {
   return (
-    <div className="about-fade-up" style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom, display:'flex', alignItems:'center', gap:16}}>
+    <div className={`about-fade-up${className ? ` ${className}` : ''}`} style={{fontSize:8, letterSpacing:'0.45em', textTransform:'uppercase', color:'#C9956A', marginBottom, display:'flex', alignItems:'center', gap:16}}>
       <span style={{width:18, height:1, background:'#C9956A', display:'inline-block'}} />
       {children}
     </div>
@@ -411,19 +411,19 @@ export default function MembersPage() {
 
       {/* 4. LEARNING JOURNEY */}
       <section className="section-pad members-journey-section" style={{padding:'clamp(88px, 8vw, 104px) 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
-        <SectionLabel marginBottom={40}>Learning Journey</SectionLabel>
+        <SectionLabel className="journey-label" marginBottom={40}>Learning Journey</SectionLabel>
         <div className="members-journey about-fade-up" style={{display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center'}}>
           {journeySteps.map((s, i) => {
             const isActive = activeJourneyPair === s.pair;
             return (
               <div key={s.no} style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
                 <div className="members-journey-step" {...journeyPairProps(s.pair)} style={{cursor:'pointer'}}>
-                  <div style={{fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color: isActive ? '#C9956A' : '#EDEBE5', marginBottom:6, transition:'color 0.4s ease'}}>{s.no}</div>
-                  <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.2vw,28px)', fontWeight:300, letterSpacing:'-0.01em', marginBottom:5, color: isActive ? '#C9956A' : '#EDEBE5', transition:'color 0.4s ease'}}>{s.label}</div>
-                  <div style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color: isActive ? '#C9956A' : 'rgba(237,235,229,0.72)', transition:'color 0.4s ease'}}>{t(s.ja, s.en, s.zh)}</div>
+                  <div className="journey-step-no" style={{fontSize:9, letterSpacing:'0.32em', textTransform:'uppercase', color: isActive ? '#C9956A' : '#EDEBE5', marginBottom:6, transition:'color 0.4s ease'}}>{s.no}</div>
+                  <div className="journey-step-label" style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.2vw,28px)', fontWeight:300, letterSpacing:'-0.01em', marginBottom:5, color: isActive ? '#C9956A' : '#EDEBE5', transition:'color 0.4s ease'}}>{s.label}</div>
+                  <div className="journey-step-desc" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color: isActive ? '#C9956A' : 'rgba(237,235,229,0.72)', transition:'color 0.4s ease'}}>{t(s.ja, s.en, s.zh)}</div>
                 </div>
                 {i < journeySteps.length - 1 && (
-                  <span aria-hidden="true" style={{color:'#C9956A', fontSize:18, lineHeight:1, margin:'12px 0'}}>↓</span>
+                  <span aria-hidden="true" className="journey-step-arrow" style={{color:'#C9956A', fontSize:18, lineHeight:1, margin:'12px 0'}}>↓</span>
                 )}
               </div>
             );
@@ -452,10 +452,10 @@ export default function MembersPage() {
                     transition:'border-color 0.4s ease, background-color 0.4s ease',
                   }}
                 >
-                  <div style={{fontFamily:'Cormorant Garamond, serif', fontSize:20, fontWeight:300, letterSpacing:'-0.01em', color:'#EDEBE5'}}>
+                  <div className="journey-plan-name" style={{fontFamily:'Cormorant Garamond, serif', fontSize:20, fontWeight:300, letterSpacing:'-0.01em', color:'#EDEBE5'}}>
                     {p.name}
                   </div>
-                  <div style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:1.8, color:'rgba(237,235,229,0.72)'}}>{t(p.ja, p.en, p.zh)}</div>
+                  <div className="journey-plan-desc" style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:12, lineHeight:1.8, color:'rgba(237,235,229,0.72)'}}>{t(p.ja, p.en, p.zh)}</div>
                 </div>
                 {i < journeyPlans.length - 1 && (
                   <span aria-hidden="true" className="journey-arrow" style={{alignSelf:'center', color:'#C9956A', fontSize:20, lineHeight:1, flexShrink:0}}>→</span>
@@ -532,12 +532,36 @@ export default function MembersPage() {
             grid-template-columns: 1fr !important;
             gap: 24px !important;
           }
+          .members-journey-section { padding: 64px 24px !important; }
+          .journey-label { margin-bottom: 26px !important; }
+          .journey-step-no { margin-bottom: 4px !important; }
+          .journey-step-label {
+            font-size: 19px !important;
+            margin-bottom: 2px !important;
+          }
+          .journey-step-desc { font-size: 12px !important; }
+          .journey-step-arrow {
+            font-size: 15px !important;
+            margin: 7px 0 !important;
+          }
           .members-journey-plans {
             flex-direction: column !important;
+            margin-top: 26px !important;
+            gap: 6px !important;
+          }
+          .members-journey-plan {
+            padding: 15px 18px !important;
+            gap: 4px !important;
+          }
+          .journey-plan-name { font-size: 17px !important; }
+          .journey-plan-desc {
+            font-size: 11.5px !important;
+            line-height: 1.65 !important;
           }
           .journey-arrow {
             transform: rotate(90deg) !important;
-            margin: 4px 0 !important;
+            margin: 0 !important;
+            font-size: 15px !important;
           }
           .members-offline {
             grid-template-columns: 1fr !important;
