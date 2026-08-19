@@ -200,39 +200,7 @@ export default function MembersPage() {
 
       <SubscriptionPhilosophy />
 
-      {/* 2. STEP 1–5 */}
-      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
-        <SectionLabel>Learning Path — STEP 1–5</SectionLabel>
-        {steps.map((s) => (
-          <div
-            key={s.step}
-            className="members-step-row about-fade-up"
-            style={{
-              display:'grid',
-              gridTemplateColumns:'minmax(0, 1fr) auto',
-              alignItems:'baseline',
-              gap:24,
-              padding:'32px 0',
-              borderBottom:'1px solid rgba(237,235,229,0.15)',
-            }}
-          >
-            <div style={{display:'flex', flexWrap:'wrap', alignItems:'baseline', gap:'8px 16px', minWidth:0}}>
-              <span style={{fontSize:9, color:'#C9956A', letterSpacing:'0.32em', flexShrink:0}}>{s.step}</span>
-              <span style={{color:'rgba(237,235,229,0.15)', flexShrink:0}}>｜</span>
-              <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.4vw,28px)', fontWeight:300, letterSpacing:'-0.01em', flexShrink:0}}>{s.en}</span>
-              <span style={{color:'rgba(237,235,229,0.15)', flexShrink:0}}>—</span>
-              <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#EDEBE5', fontWeight:300}}>
-                {lang === 'zh' ? s.jpZh : lang === 'en' ? s.jpEn : s.jp}
-              </span>
-            </div>
-            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'rgba(237,235,229,0.72)', letterSpacing:'0.06em', whiteSpace:'nowrap', flexShrink:0}}>
-              Goal：{lang === 'zh' ? s.goalZh : lang === 'en' ? s.goalEn : s.goalJa}
-            </span>
-          </div>
-        ))}
-      </section>
-
-      {/* 3. SUBSCRIPTION PLAN */}
+      {/* 2. SUBSCRIPTION PLAN */}
       <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel>Learning Plans</SectionLabel>
         <div className="members-plans-intro about-fade-up" style={{maxWidth:720, marginBottom:'clamp(48px, 6vw, 80px)'}}>
@@ -409,7 +377,7 @@ export default function MembersPage() {
         </div>
       </section>
 
-      {/* 4. LEARNING JOURNEY */}
+      {/* 3. LEARNING JOURNEY */}
       <section className="section-pad members-journey-section" style={{padding:'clamp(88px, 8vw, 104px) 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
         <SectionLabel className="journey-label" marginBottom={40}>Learning Journey</SectionLabel>
         <div className="members-journey about-fade-up" style={{display:'flex', flexDirection:'column', alignItems:'center', textAlign:'center'}}>
@@ -464,6 +432,38 @@ export default function MembersPage() {
             );
           })}
         </div>
+      </section>
+
+      {/* 4. STEP 1–5 */}
+      <section className="section-pad" style={{padding:'140px 80px', borderBottom:'1px solid rgba(237,235,229,0.15)'}}>
+        <SectionLabel>Learning Path — STEP 1–5</SectionLabel>
+        {steps.map((s) => (
+          <div
+            key={s.step}
+            className="members-step-row about-fade-up"
+            style={{
+              display:'grid',
+              gridTemplateColumns:'minmax(0, 1fr) auto',
+              alignItems:'baseline',
+              gap:24,
+              padding:'32px 0',
+              borderBottom:'1px solid rgba(237,235,229,0.15)',
+            }}
+          >
+            <div style={{display:'flex', flexWrap:'wrap', alignItems:'baseline', gap:'8px 16px', minWidth:0}}>
+              <span style={{fontSize:9, color:'#C9956A', letterSpacing:'0.32em', flexShrink:0}}>{s.step}</span>
+              <span style={{color:'rgba(237,235,229,0.15)', flexShrink:0}}>｜</span>
+              <span style={{fontFamily:'Cormorant Garamond, serif', fontSize:'clamp(20px,2.4vw,28px)', fontWeight:300, letterSpacing:'-0.01em', flexShrink:0}}>{s.en}</span>
+              <span style={{color:'rgba(237,235,229,0.15)', flexShrink:0}}>—</span>
+              <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:13, color:'#EDEBE5', fontWeight:300}}>
+                {lang === 'zh' ? s.jpZh : lang === 'en' ? s.jpEn : s.jp}
+              </span>
+            </div>
+            <span style={{fontFamily:"'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif", fontSize:11, color:'rgba(237,235,229,0.72)', letterSpacing:'0.06em', whiteSpace:'nowrap', flexShrink:0}}>
+              Goal：{lang === 'zh' ? s.goalZh : lang === 'en' ? s.goalEn : s.goalJa}
+            </span>
+          </div>
+        ))}
       </section>
 
       {/* 5. OFFLINE CONNECTION */}
