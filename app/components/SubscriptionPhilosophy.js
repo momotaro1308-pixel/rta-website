@@ -28,7 +28,7 @@ const STATEMENT = {
       'ここにはこの技法',
       'でも目の前の髪が変われば同じ答えがそのまま通用するとは限らない',
     ],
-    conditions: ['生え癖が強い', '髪の量が多い', '髪質が違う', '骨格が違う'],
+    conditions: ['生え癖の強さ', '毛量の多さ', '毛質の差', '骨格の違い'],
     limit: ['そんな髪を前にしたとき覚えた答えだけでは対応できない'],
     why: ['だからRTAでは「なぜ、そう切るのか」を考える'],
     link: [
@@ -64,10 +64,10 @@ const STATEMENT = {
       'but when the hair in front of you changes, the same answer does not always hold',
     ],
     conditions: [
-      'The growth pattern is strong',
-      'The hair is dense',
-      'The hair quality differs',
-      'The bone structure differs',
+      'The strength of the growth pattern',
+      'The amount of hair',
+      'The difference in hair quality',
+      'The difference in bone structure',
     ],
     limit: ['Faced with such hair, memorized answers alone cannot respond'],
     why: ['So at RTA we think about "why cut it that way"'],
@@ -103,7 +103,7 @@ const STATEMENT = {
       '这里用这种技法',
       '但眼前的头发一变，同样的答案未必就能通用',
     ],
-    conditions: ['发旋强', '发量多', '发质不同', '骨骼不同'],
+    conditions: ['发旋的强度', '发量的多少', '发质的差异', '骨骼的不同'],
     limit: ['面对这样的头发，只靠记住的答案无法应对'],
     why: ['所以在 RTA，我们思考「为什么要这样剪」'],
     link: [
@@ -144,10 +144,22 @@ function Label({ children }) {
   );
 }
 
-// 指定の改行位置を保ちつつ、狭い画面では句や語の境界で折り返す
-function Lines({ lines, gap, className, style }) {
+// 指定の改行位置を保ちつつ、狭い画面では句や語の境界で折り返す。
+// 折り返しが前提の長い本文は left で左揃えにし、中央のカラム内に収める
+function Lines({ lines, gap, align = 'center', className, style }) {
+  const left = align === 'left';
   return (
-    <p className={className} style={{margin:`0 0 ${gap}`, wordBreak:'auto-phrase', ...style}}>
+    <p
+      className={[className, left ? 'philosophy-body' : 'philosophy-key'].filter(Boolean).join(' ')}
+      data-align={align}
+      style={{
+        margin: `0 auto ${gap}`,
+        maxWidth: left ? 580 : undefined,
+        wordBreak: 'auto-phrase',
+        ...style,
+        textAlign: left ? 'left' : 'center',
+      }}
+    >
       {lines.map((line) => (
         <span key={line} style={{display:'block'}}>{line}</span>
       ))}
@@ -172,26 +184,27 @@ export default function SubscriptionPhilosophy() {
           {s.heading}
         </h2>
 
-        <Lines lines={s.lead} gap={GAP.break} style={turn} />
+        <Lines lines={s.lead} gap={GAP.break} align="left" style={turn} />
 
-        <Lines lines={s.teach} gap={GAP.near} style={body} />
+        <Lines lines={s.teach.slice(0, 3)} gap={GAP.tight} style={staccato} />
+        <Lines lines={s.teach.slice(3)} gap={GAP.near} align="left" style={body} />
         <Lines lines={s.conditions} gap={GAP.tight} style={staccato} />
-        <Lines lines={s.limit} gap={GAP.break} style={body} />
+        <Lines lines={s.limit} gap={GAP.break} align="left" style={body} />
 
         <Lines lines={s.why} gap={GAP.near} style={turn} />
-        <Lines lines={s.link} gap={GAP.break} style={body} />
+        <Lines lines={s.link} gap={GAP.break} align="left" style={body} />
 
         <Lines lines={s.tool} gap={GAP.beat} style={turn} />
         <Lines lines={s.razorCue} gap={GAP.near} style={{...turn, fontSize:'clamp(14px, 1.8vw, 17px)'}} />
-        <Lines lines={s.razor} gap={GAP.break} style={body} />
+        <Lines lines={s.razor} gap={GAP.break} align="left" style={body} />
 
         <blockquote className="philosophy-quote" style={{fontFamily:MINCHO, fontWeight:400, fontSize:'clamp(16px, 2.5vw, 22px)', lineHeight:1.8, letterSpacing:'0.04em', color:COPPER, maxWidth:520, margin:`0 auto ${GAP.break}`, padding:'clamp(24px, 3.4vw, 34px) 0', borderTop:`1px solid ${HAIRLINE}`, borderBottom:`1px solid ${HAIRLINE}`, wordBreak:'auto-phrase'}}>
           {s.quote}
         </blockquote>
 
-        <Lines lines={s.open} gap={GAP.near} style={turn} />
+        <Lines lines={s.open} gap={GAP.near} align="left" style={turn} />
         <Lines lines={s.choices} gap={GAP.tight} style={staccato} />
-        <Lines lines={s.result} gap={GAP.break} style={body} />
+        <Lines lines={s.result} gap={GAP.break} align="left" style={body} />
 
         <Lines lines={s.closer} gap={GAP.beat} style={{fontFamily:MINCHO, fontWeight:500, fontSize:'clamp(17px, 2.6vw, 23px)', lineHeight:1.9, letterSpacing:'0.02em', color:CREAM}} />
 
