@@ -1,5 +1,6 @@
 'use client';
 
+import { useLayoutEffect, useRef } from 'react';
 import { useLang } from '../context/LangContext';
 
 const MINCHO = "'Shippori Mincho', 'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif";
@@ -9,6 +10,7 @@ const CREAM = '#EDEBE5';
 const CREAM_70 = 'rgba(237,235,229,0.7)';
 const COPPER = '#C9956A';
 const HAIRLINE = 'rgba(237,235,229,0.15)';
+const MIN_PX = 11;
 
 // 塊の変わり目は開け、畳みかける列挙は詰める
 const GAP = {
@@ -144,24 +146,73 @@ function Label({ children }) {
   );
 }
 
-// 指定の改行位置を保ちつつ、狭い画面では句や語の境界で折り返す。
-// 折り返しが前提の長い本文は left で左揃えにし、中央のカラム内に収める
-function Lines({ lines, gap, align = 'center', className, style }) {
-  const left = align === 'left';
+// 各行を nowrap で測り、収まるまでフォントを縮小（下限 11px）。それでも溢れるときだけ balance で折り返す
+function FitLine({ children }) {
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const fit = () => {
+      el.style.fontSize = '';
+      el.style.whiteSpace = 'nowrap';
+      el.style.wordBreak = 'keep-all';
+      el.style.textWrap = 'nowrap';
+
+      const available = el.clientWidth;
+      if (available <= 0) return;
+      if (el.scrollWidth <= available + 1) return;
+
+      const base = parseFloat(getComputedStyle(el).fontSize);
+      let lo = MIN_PX;
+      let hi = base;
+      let best = MIN_PX;
+      for (let i = 0; i < 14; i++) {
+        const mid = (lo + hi) / 2;
+        el.style.fontSize = `${mid}px`;
+        if (el.scrollWidth <= available + 1) {
+          best = mid;
+          lo = mid;
+        } else {
+          hi = mid;
+        }
+      }
+      el.style.fontSize = `${best}px`;
+
+      if (el.scrollWidth > available + 1) {
+        el.style.whiteSpace = 'normal';
+        el.style.textWrap = 'balance';
+        el.style.wordBreak = 'auto-phrase';
+        el.style.fontSize = '';
+      }
+    };
+
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [children]);
+
+  return (
+    <span ref={ref} className="philosophy-line" style={{display:'block'}}>
+      {children}
+    </span>
+  );
+}
+
+function Lines({ lines, gap, className, style }) {
   return (
     <p
-      className={[className, left ? 'philosophy-body' : 'philosophy-key'].filter(Boolean).join(' ')}
-      data-align={align}
+      className={className}
       style={{
         margin: `0 auto ${gap}`,
-        maxWidth: left ? 580 : undefined,
-        wordBreak: 'auto-phrase',
+        textAlign: 'center',
         ...style,
-        textAlign: left ? 'left' : 'center',
       }}
     >
       {lines.map((line) => (
-        <span key={line} style={{display:'block'}}>{line}</span>
+        <FitLine key={line}>{line}</FitLine>
       ))}
     </p>
   );
@@ -177,48 +228,41 @@ export default function SubscriptionPhilosophy() {
 
   return (
     <section className="section-pad philosophy-section" style={{padding:'clamp(80px, 9vw, 112px) 80px', borderBottom:`1px solid ${HAIRLINE}`, textAlign:'center'}}>
-      <div className="philosophy-inner about-fade-up" style={{maxWidth:620, margin:'0 auto'}}>
+      <div className="philosophy-inner about-fade-up" style={{maxWidth:920, margin:'0 auto'}}>
         <Label>RTA — Philosophy</Label>
 
         <h2 style={{fontFamily:MINCHO, fontWeight:500, fontSize:'clamp(28px, 5vw, 44px)', lineHeight:1.4, letterSpacing:'0.04em', color:CREAM, margin:`0 0 ${GAP.beat}`}}>
-          {s.heading}
+          <FitLine>{s.heading}</FitLine>
         </h2>
 
-        <Lines lines={s.lead} gap={GAP.break} align="left" style={turn} />
+        <Lines lines={s.lead} gap={GAP.break} style={turn} />
 
         <Lines lines={s.teach.slice(0, 3)} gap={GAP.tight} style={staccato} />
-        <Lines lines={s.teach.slice(3)} gap={GAP.near} align="left" style={body} />
+        <Lines lines={s.teach.slice(3)} gap={GAP.near} style={body} />
         <Lines lines={s.conditions} gap={GAP.tight} style={staccato} />
-        <Lines lines={s.limit} gap={GAP.break} align="left" style={body} />
+        <Lines lines={s.limit} gap={GAP.break} style={body} />
 
         <Lines lines={s.why} gap={GAP.near} style={turn} />
-        <Lines lines={s.link} gap={GAP.break} align="left" style={body} />
+        <Lines lines={s.link} gap={GAP.break} style={body} />
 
         <Lines lines={s.tool} gap={GAP.beat} style={turn} />
         <Lines lines={s.razorCue} gap={GAP.near} style={{...turn, fontSize:'clamp(14px, 1.8vw, 17px)'}} />
-        <Lines lines={s.razor} gap={GAP.break} align="left" style={body} />
+        <Lines lines={s.razor} gap={GAP.break} style={body} />
 
-        <blockquote className="philosophy-quote" style={{fontFamily:MINCHO, fontWeight:400, fontSize:'clamp(16px, 2.5vw, 22px)', lineHeight:1.8, letterSpacing:'0.04em', color:COPPER, maxWidth:520, margin:`0 auto ${GAP.break}`, padding:'clamp(24px, 3.4vw, 34px) 0', borderTop:`1px solid ${HAIRLINE}`, borderBottom:`1px solid ${HAIRLINE}`, wordBreak:'auto-phrase'}}>
-          {s.quote}
+        <blockquote className="philosophy-quote" style={{fontFamily:MINCHO, fontWeight:400, fontSize:'clamp(16px, 2.5vw, 22px)', lineHeight:1.8, letterSpacing:'0.04em', color:COPPER, maxWidth:720, margin:`0 auto ${GAP.break}`, padding:'clamp(24px, 3.4vw, 34px) 0', borderTop:`1px solid ${HAIRLINE}`, borderBottom:`1px solid ${HAIRLINE}`}}>
+          <FitLine>{s.quote}</FitLine>
         </blockquote>
 
-        <Lines lines={s.open} gap={GAP.near} align="left" style={turn} />
+        <Lines lines={s.open} gap={GAP.near} style={turn} />
         <Lines lines={s.choices} gap={GAP.tight} style={staccato} />
-        <Lines lines={s.result} gap={GAP.break} align="left" style={body} />
+        <Lines lines={s.result} gap={GAP.break} style={body} />
 
         <Lines lines={s.closer} gap={GAP.beat} style={{fontFamily:MINCHO, fontWeight:500, fontSize:'clamp(17px, 2.6vw, 23px)', lineHeight:1.9, letterSpacing:'0.02em', color:CREAM}} />
 
         <p style={{fontFamily:CORMORANT, fontStyle:'italic', fontWeight:300, fontSize:'clamp(11px, 1.3vw, 13px)', letterSpacing:'0.18em', color:COPPER, margin:0}}>
-          {CLOSER_EN}
+          <FitLine>{CLOSER_EN}</FitLine>
         </p>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .philosophy-inner { max-width: 100% !important; }
-          .philosophy-quote { padding-left: 8px !important; padding-right: 8px !important; }
-        }
-      `}</style>
     </section>
   );
 }
