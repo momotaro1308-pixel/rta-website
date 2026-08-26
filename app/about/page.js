@@ -1,5 +1,6 @@
 'use client';
 
+import { useLayoutEffect, useRef } from 'react';
 import Nav from '../components/Nav';
 import HeroImage from '../components/HeroImage';
 import RtaAboutContents from '../components/RtaAboutContents';
@@ -17,59 +18,172 @@ const C = {
 };
 
 const MINCHO = "'Shippori Mincho', 'Hiragino Mincho Pro', 'ヒラギノ明朝 Pro', serif";
+const MIN_PX = 11;
 
-// 意味の塊ごとに配列を分け、塊の内側は改行・塊の外側は余白として描画する
-const STATEMENT = {
+const GAP = {
+  tight: 'clamp(12px, 1.6vw, 16px)',
+  near: 'clamp(22px, 3vw, 32px)',
+  beat: 'clamp(36px, 4.8vw, 52px)',
+  break: 'clamp(52px, 6.5vw, 76px)',
+};
+
+const ORIGIN = {
   ja: {
-    title: '感覚を理論にする',
-    lead: ['「ここにはこの切り方」——そう覚える技術はそこで終わってしまう', 'なぜ、そう切るのか'],
-    problem: ['多くの教育は「答え」を教える', 'ここにはこの切り方、ここにはこの技法と'],
-    limit: ['だから生え癖が強い。量が多い。骨格が難しい。', '——そんな髪を前にすると再現できない'],
-    turn: ['だがなぜそう切るのかという原理を掴めば技術は応用へと開かれる'],
-    open: [
-      'この人のこのセクションにはこの技術を',
-      'この生え癖・髪質・骨格だからこの切り方を',
-      'そうして組み合わせ展開し自分の頭で新しい答えを導ける',
+    question: ['レザーは本当に悪い道具なのか'],
+    heard: [
+      '美容師なら一度は聞いたことがあると思う',
+      '「レザーは髪が傷む」',
+      '「レザーを使うとスカスカになる」',
+      'そう言われることも少なくない',
     ],
+    doubt: ['でもそれは本当にレザーそのものの問題なのか'],
+    craft: [
+      '使い方や髪への入れ方シェイプが違えば仕上がりは大きく変わる',
+      'レザーだから傷むわけでもレザーだからスカスカになるわけでもない',
+      '正しく使えばレザーでしかつくれない質感や動きがある',
+      'シザーだけでは出しにくいものもある',
+    ],
+    choice: [
+      'だからといってレザーを正解にしたいわけではない',
+      'シザーなのかレザーなのか、その両方なのか',
+      '髪を見てそのとき必要な技術を選べること',
+      'シザーだけを使えるよりレザーも使えたほうができることは増える',
+      '使える技術が増えればつくれるヘアの幅も広がる',
+      'レザーに対する先入観だけでその選択肢がなくなってしまうのはもったいない',
+    ],
+    know: [
+      'まずはレザーという道具を知ること',
+      '何ができてどう使えばその良さを引き出せるのかを知ること',
+      'そしてシザーとレザーを必要に応じて使い分けられる美容師が増えていくこと',
+    ],
+    industry: ['それが美容師一人ひとりの技術の幅を広げ結果として美容業界全体の技術の底上げにつながっていくと思っている'],
+    closer: 'Razor Tech Archiveはそこから始まった。',
   },
   en: {
-    title: 'Turning sensation into theory',
-    lead: ['"This cut goes here" — technique memorized that way ends right there', 'Why cut it that way?'],
-    problem: ['Most education teaches the "answer"', 'this cut here, this technique there'],
-    limit: [
-      'So the growth pattern is strong. The density is heavy. The bone structure is difficult.',
-      '— faced with such hair, nothing can be reproduced',
+    question: ['Is the razor really a bad tool?'],
+    heard: [
+      'If you are a hairdresser, you have probably heard it at least once',
+      '"Razors damage the hair"',
+      '"Using a razor makes it look sparse"',
+      'It is not uncommon to be told that',
     ],
-    turn: ['But grasp the principle of why you cut that way, and technique opens into application'],
-    open: [
-      'This technique for this section of this person',
-      'This cut, because of this growth pattern, this hair, this bone structure',
-      'Combining and expanding, you draw new answers with your own mind',
+    doubt: ['But is that really a problem of the razor itself?'],
+    craft: [
+      'Change how you use it, how you enter the hair, the shape, and the finish changes greatly',
+      'It is not that razors damage, nor that razors make the hair sparse',
+      'Used correctly, there is texture and movement only a razor can make',
+      'There are also things scissors alone struggle to produce',
     ],
+    choice: [
+      'That does not mean we want to make the razor the right answer',
+      'Scissors, or razor, or both',
+      'Looking at the hair and choosing the technique needed then',
+      'Being able to use a razor as well as scissors means you can do more',
+      'The more techniques you can use, the wider the hair you can create',
+      'It is a waste if prejudice against razors alone takes that choice away',
+    ],
+    know: [
+      'First, to know the razor as a tool',
+      'To know what it can do, and how to draw out its strengths',
+      'And for more hairdressers who can use scissors and razor as needed',
+    ],
+    industry: [
+      'That, I believe, widens each hairdresser\'s range of technique and, as a result, raises the technical floor of the industry as a whole',
+    ],
+    closer: 'Razor Tech Archive began from there.',
   },
   zh: {
-    title: '把感觉变成理论',
-    lead: ['「这里就用这种剪法」——这样记住的技术，到此就结束了', '为什么要那样剪'],
-    problem: ['多数教育教的是「答案」', '这里用这种剪法，那里用那种技法'],
-    limit: ['所以发旋强。发量多。骨骼难。', '——面对这样的头发便无法复现'],
-    turn: ['但若掌握「为何这样剪」的原理，技术就会向应用敞开'],
-    open: [
-      '为这个人的这个区域，选择这个技术',
-      '因为是这样的发旋、发质、骨骼，所以用这样的剪法',
-      '如此组合、展开，便能用自己的头脑导出新的答案',
+    question: ['剃刀真的是坏工具吗'],
+    heard: [
+      '身为美容师，想必都听过一次',
+      '「剃刀会伤头发」',
+      '「用剃刀就会变得空疏」',
+      '这样被说的也不少',
     ],
+    doubt: ['但那真的是剃刀本身的问题吗'],
+    craft: [
+      '用法、下刀的方式、形状一变，完成效果就会大不相同',
+      '并不是因为是剃刀才会伤，也不是因为是剃刀才会空疏',
+      '正确使用，就有只有剃刀才能做出的质感与动感',
+      '也有剪刀单独难以带出的东西',
+    ],
+    choice: [
+      '但这并不意味着要把剃刀当成正确答案',
+      '是剪刀还是剃刀，还是两者都用',
+      '看着头发，选出那时需要的技术',
+      '比起只会用剪刀，连剃刀也能用，能做的事就会变多',
+      '能用的技术增加，能做的发型幅度也会变宽',
+      '只因对剃刀的先入之见，就失去这个选择，太可惜',
+    ],
+    know: [
+      '首先是认识剃刀这件工具',
+      '知道它能做什么、怎样用才能引出它的长处',
+      '并且，能按需要把剪刀与剃刀分开使用的美容师多起来',
+    ],
+    industry: ['我认为那会拓宽每一位美容师的技术幅度，结果也会把整个美容行业的技术底盘抬高'],
+    closer: 'Razor Tech Archive 就是从那里开始的。',
   },
 };
 
-const STATEMENT_CLOSER = '" From instinct to intention "';
+function FitLine({ children }) {
+  const ref = useRef(null);
 
-function StatementLines({ lines, style }) {
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const fit = () => {
+      el.style.fontSize = '';
+      el.style.whiteSpace = 'nowrap';
+      el.style.wordBreak = 'keep-all';
+      el.style.textWrap = 'nowrap';
+
+      const available = el.clientWidth;
+      if (available <= 0) return;
+      if (el.scrollWidth <= available + 1) return;
+
+      const base = parseFloat(getComputedStyle(el).fontSize);
+      let lo = MIN_PX;
+      let hi = base;
+      let best = MIN_PX;
+      for (let i = 0; i < 14; i++) {
+        const mid = (lo + hi) / 2;
+        el.style.fontSize = `${mid}px`;
+        if (el.scrollWidth <= available + 1) {
+          best = mid;
+          lo = mid;
+        } else {
+          hi = mid;
+        }
+      }
+      el.style.fontSize = `${best}px`;
+
+      if (el.scrollWidth > available + 1) {
+        el.style.whiteSpace = 'normal';
+        el.style.textWrap = 'balance';
+        el.style.wordBreak = 'auto-phrase';
+        el.style.fontSize = '';
+      }
+    };
+
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [children]);
+
   return (
-    <p style={{ margin: 0, ...style }}>
+    <span ref={ref} className="about-origin-line" style={{ display: 'block' }}>
+      {children}
+    </span>
+  );
+}
+
+function Lines({ lines, gap, style }) {
+  return (
+    <p style={{ margin: `0 auto ${gap}`, textAlign: 'center', ...style }}>
       {lines.map((line) => (
-        <span key={line} style={{ display: 'block' }}>
-          {line}
-        </span>
+        <FitLine key={line}>{line}</FitLine>
       ))}
     </p>
   );
@@ -121,7 +235,7 @@ export default function AboutPage() {
   const mainRef = useGsapPageScroll();
   const { lang } = useLang();
 
-  const statement = STATEMENT[lang] ?? STATEMENT.ja;
+  const origin = ORIGIN[lang] ?? ORIGIN.ja;
   const gridSectionLabel =
     lang === 'zh'
       ? '何为 RTA Subscription'
@@ -222,80 +336,75 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ② Statement — RTA philosophy */}
+      {/* ② Origin — why Razor Tech Archive began */}
       <section
         id="intro"
         className="about-statement about-fade-up"
         style={{
           padding: 'clamp(56px, 8vw, 104px) clamp(24px, 5vw, 64px)',
-          background: C.panelAlt,
+          background: C.bg,
           borderTop: `0.5px solid ${C.border}`,
+          textAlign: 'center',
         }}
       >
-        <div className="about-statement-inner" style={{ maxWidth: 640, margin: '0 auto' }}>
-          <h2
-            className="about-statement-title"
+        <div className="about-statement-inner" style={{ maxWidth: 920, margin: '0 auto' }}>
+          <Lines
+            lines={origin.question}
+            gap={GAP.beat}
             style={{
               fontFamily: MINCHO,
-              fontSize: 'clamp(26px, 4vw, 40px)',
               fontWeight: 500,
-              lineHeight: 1.45,
-              letterSpacing: '0.03em',
+              fontSize: 'clamp(18px, 2.6vw, 26px)',
+              lineHeight: 1.85,
+              letterSpacing: '0.04em',
               color: C.text,
-              margin: '0 0 clamp(30px, 4vw, 44px)',
-            }}
-          >
-            {statement.title}
-          </h2>
-
-          <StatementLines
-            lines={statement.lead}
-            style={{
-              fontFamily: MINCHO,
-              fontSize: 'clamp(14px, 1.7vw, 17px)',
-              lineHeight: 2.05,
-              color: C.text,
-              marginBottom: 'clamp(30px, 4vw, 42px)',
             }}
           />
-
-          <StatementLines
-            lines={statement.problem}
-            style={{ fontFamily: MINCHO, fontSize: 13, lineHeight: 2.15, color: C.muted, marginBottom: 16 }}
+          <Lines
+            lines={origin.heard}
+            gap={GAP.break}
+            style={{ fontFamily: MINCHO, fontWeight: 400, fontSize: 'clamp(12.5px, 1.5vw, 14px)', lineHeight: 2.15, color: C.muted }}
           />
-          <StatementLines
-            lines={statement.limit}
-            style={{ fontFamily: MINCHO, fontSize: 13, lineHeight: 2.15, color: C.muted }}
+          <Lines
+            lines={origin.doubt}
+            gap={GAP.near}
+            style={{ fontFamily: MINCHO, fontWeight: 500, fontSize: 'clamp(14px, 1.9vw, 18px)', lineHeight: 1.95, color: C.text }}
           />
-
-          <StatementLines
-            lines={statement.turn}
-            style={{
-              fontFamily: MINCHO,
-              fontSize: 'clamp(15px, 1.9vw, 19px)',
-              lineHeight: 1.95,
-              color: C.text,
-              margin: 'clamp(34px, 4.6vw, 50px) 0 clamp(22px, 3vw, 28px)',
-            }}
+          <Lines
+            lines={origin.craft}
+            gap={GAP.break}
+            style={{ fontFamily: MINCHO, fontWeight: 400, fontSize: 'clamp(12.5px, 1.5vw, 14px)', lineHeight: 2.15, color: C.muted }}
           />
-          <StatementLines
-            lines={statement.open}
-            style={{ fontFamily: MINCHO, fontSize: 13, lineHeight: 2.15, color: C.muted }}
+          <Lines
+            lines={origin.choice}
+            gap={GAP.break}
+            style={{ fontFamily: MINCHO, fontWeight: 400, fontSize: 'clamp(12.5px, 1.5vw, 14px)', lineHeight: 2.15, color: C.muted }}
+          />
+          <Lines
+            lines={origin.know}
+            gap={GAP.near}
+            style={{ fontFamily: MINCHO, fontWeight: 400, fontSize: 'clamp(12.5px, 1.5vw, 14px)', lineHeight: 2.15, color: C.muted }}
+          />
+          <Lines
+            lines={origin.industry}
+            gap={0}
+            style={{ fontFamily: MINCHO, fontWeight: 400, fontSize: 'clamp(12.5px, 1.5vw, 14px)', lineHeight: 2.15, color: C.muted }}
           />
 
           <p
             className="about-statement-closer"
             style={{
-              fontFamily: 'Cormorant Garamond, serif',
-              fontSize: 'clamp(12px, 1.4vw, 14px)',
-              fontStyle: 'italic',
-              fontWeight: 300,
-              letterSpacing: '0.16em',
-              color: C.accent,
-              margin: 'clamp(40px, 5.5vw, 60px) 0 0',
+              fontFamily: MINCHO,
+              fontWeight: 500,
+              fontSize: 'clamp(16px, 2.2vw, 22px)',
+              lineHeight: 1.8,
+              letterSpacing: '0.04em',
+              color: C.text,
+              margin: 'clamp(72px, 9vw, 112px) auto 0',
+              textAlign: 'center',
             }}
           >
-            {STATEMENT_CLOSER}
+            <FitLine>{origin.closer}</FitLine>
           </p>
         </div>
       </section>
