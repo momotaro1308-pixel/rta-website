@@ -8,6 +8,19 @@ import { useLang } from '../context/LangContext';
 import { useGsapPageScroll } from '../hooks/useGsapPageScroll';
 
 const products = [
+  // TODO: 本番決済確認後に削除する一時商品
+  {
+    id: 'test-checkout',
+    nameJa: 'TEST ITEM（決済確認用）',
+    nameEn: 'TEST ITEM（決済確認用）',
+    nameZh: 'TEST ITEM（決済確認用）',
+    category: 'Product',
+    status: 'available',
+    price: 100,
+    descJa: '決済フロー確認用の一時商品です。確認後に削除します。',
+    descEn: 'Temporary item for payment-flow testing. Will be removed after confirmation.',
+    descZh: '用于确认结算流程的临时商品。确认后将删除。',
+  },
   {
     id: 'razor-seminar',
     nameJa: 'Razor Basics Seminar in Nagoya',
